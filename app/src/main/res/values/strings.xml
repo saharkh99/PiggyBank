@@ -6,4 +6,5 @@
     <string name="string_forgot_password">فراموشی رمز</string>
     <string name="string_sign_up">ثبت نام</string>
     <string name="string_welcom">خوش آمدید</string>
+    <string name="string_repeat_password">تکرار رمز عبور</string>
 </resources>

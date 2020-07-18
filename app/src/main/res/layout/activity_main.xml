@@ -44,7 +44,7 @@
         android:layout_marginBottom="40dp"
         android:padding="@dimen/large_padding"
         android:layout_gravity="center"
-        android:elevation="@dimen/cardview_default_elevation"
+        android:elevation="10dp"
         app:cardCornerRadius="@dimen/xlarge_margin"
         >
         <LinearLayout
