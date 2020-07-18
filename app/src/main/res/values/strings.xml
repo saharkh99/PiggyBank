@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">PiggyBank</string>
+    <string name="string_email">ایمیل</string>
+    <string name="string_password">رمز عبور</string>
+    <string name="string_login">ورود</string>
+    <string name="string_forgot_password">فراموشی رمز</string>
+    <string name="string_sign_up">ثبت نام</string>
+    <string name="string_welcom">خوش آمدید</string>
 </resources>
