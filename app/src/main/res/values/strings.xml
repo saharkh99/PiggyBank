@@ -7,4 +7,9 @@
     <string name="string_sign_up">ثبت نام</string>
     <string name="string_welcom">خوش آمدید</string>
     <string name="string_repeat_password">تکرار رمز عبور</string>
+    <string name="string_month"> ماه :  مهر  </string>
+    <string name="string_income">درامد : 0 تومان</string>
+    <string name="string_expense">خرج : 0 تومان</string>
+    <string name="string_new_income">درامد جدید</string>
+    <string name="string_new_expense">هزینه جدید</string>
 </resources>

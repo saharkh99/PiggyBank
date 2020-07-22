@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#feceab</color>
+    <color name="colorPrimaryWithOpacity">#99FECEAB</color>
     <color name="colorPrimaryDark">#ff847c</color>
+    <color name="colorPrimaryDarkWithOpacity">#99FF847C</color>
     <color name="colorAccent">#99b898</color>
     <color name="error_color">#DA645B</color>
     <color name="brown_box">#603F35</color>
