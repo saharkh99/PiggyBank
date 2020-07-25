@@ -11,11 +11,11 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 
-public class ViewPager extends FragmentPagerAdapter {
+public class ViewPagerAdapter extends FragmentPagerAdapter {
     private final ArrayList<Fragment> fragments = new ArrayList<>();
     private final ArrayList<String> titles = new ArrayList<>();
 
-    public ViewPager(@NonNull FragmentManager fm) {
+    public ViewPagerAdapter(@NonNull FragmentManager fm) {
         super(fm);
     }
 

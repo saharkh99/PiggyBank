@@ -6,7 +6,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
 
 import com.duolingo.open.rtlviewpager.RtlViewPager;
@@ -54,7 +53,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     private void setupViewPager(RtlViewPager viewPager) {
-        ViewPager adapter = new ViewPager(getSupportFragmentManager());
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new HomeFragment(), "خانه");
         adapter.addFragment(new ReportFragment(), "گزارش");
         viewPager.setAdapter(adapter);
