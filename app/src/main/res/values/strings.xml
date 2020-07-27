@@ -13,4 +13,7 @@
     <string name="string_new_income">درامد جدید</string>
     <string name="string_new_expense">هزینه جدید</string>
     <string name="string_balance">0 تومان   \n  بودجه</string>
+    <string name="string_amount">مقدار</string>
+    <string name="string_type">نوع</string>
+    <string name="string_color">رنگ</string>
 </resources>
