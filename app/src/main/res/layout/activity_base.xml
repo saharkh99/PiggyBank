@@ -14,16 +14,12 @@
         android:orientation="vertical"
         android:background="@color/design_default_color_surface"
         tools:context=".BaseActivity">
-
-
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            app:cardCornerRadius="30dp"
-            android:layout_marginTop="-30dp"
+            android:layout_weight=".8"
+            app:cardCornerRadius="0dp"
             app:cardBackgroundColor="@color/colorPrimaryDark"
-            app:cardElevation="5dp"
             >
             <LinearLayout
                 android:layout_width="match_parent"
@@ -89,11 +85,14 @@
                 android:id="@+id/viewpager">
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/pager_header"
+                    android:elevation="@dimen/cardview_default_elevation"
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
+                    android:layout_height="?attr/actionBarSize"
                     android:layout_gravity="top"
                     android:paddingBottom="4dp"
                     app:tabMode="fixed"
+                    android:backgroundTint="@color/colorPrimaryWithOpacity"
+                    app:tabInlineLabel="true"
                     app:tabSelectedTextColor="@color/brown_box"
                     app:tabIndicatorColor="@color/brown_box"
                     app:tabGravity="fill"
@@ -109,6 +108,7 @@
         android:id="@+id/navigation_view"
         android:layout_width="250dp"
         android:layout_height="match_parent"
+        app:headerLayout="@layout/header"
         android:layout_gravity="start"
         app:itemTextColor="@color/colorAccent"
         app:itemTextAppearance="@style/TextAppearance.AppCompat.Menu"

@@ -1,4 +1,4 @@
-package com.example.piggybank;
+package com.example.piggybank.model;
 
 public class Account {
     private int id;

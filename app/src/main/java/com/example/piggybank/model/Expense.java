@@ -1,4 +1,6 @@
-package com.example.piggybank;
+package com.example.piggybank.model;
+
+import com.example.piggybank.model.Transaction;
 
 public class Expense extends Transaction {
 
