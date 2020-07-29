@@ -8,42 +8,50 @@
     android:id="@+id/drawer"
     tools:context=".BaseActivity"
     android:layoutDirection="rtl">
-    <LinearLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/main_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/design_default_color_surface"
-        tools:context=".BaseActivity">
-        <com.google.android.material.card.MaterialCardView
+        >
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight=".8"
-            app:cardCornerRadius="0dp"
-            app:cardBackgroundColor="@color/colorPrimaryDark"
-            >
-            <LinearLayout
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:weightSum="7"
-                android:layoutDirection="rtl"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:background="@color/colorPrimaryDark"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="3"
+                    android:layout_height="?attr/actionBarSize"
+                    app:layout_collapseMode="pin"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed"
                     android:padding="@dimen/large_padding"
                     app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                     app:contentInsetStartWithNavigation="0dp"
                     android:background="@color/colorPrimaryDark"
                     >
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/large_padding"
+                        android:src="@drawable/calender"
+                        android:backgroundTint="@color/colorPrimaryDark"
+                        />
                 </androidx.appcompat.widget.Toolbar>
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginTop="@dimen/normal_margin"
                     android:gravity="center"
-                    android:layout_weight="3"
+                    android:padding="@dimen/large_padding"
                     android:layoutDirection="ltr"
                     android:layout_margin="@dimen/normal_margin"
                     android:orientation="horizontal">
@@ -70,40 +78,71 @@
                         android:textStyle="bold" />
 
                 </LinearLayout>
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <FrameLayout
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2.5"
-            android:id="@+id/fragment_container">
-
-            <com.duolingo.open.rtlviewpager.RtlViewPager
-                android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            android:fillViewport="true"
+           >
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/viewpager">
-                <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/pager_header"
-                    android:elevation="@dimen/cardview_default_elevation"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:layout_gravity="top"
-                    android:paddingBottom="4dp"
-                    app:tabMode="fixed"
-                    android:backgroundTint="@color/colorPrimaryWithOpacity"
-                    app:tabInlineLabel="true"
-                    app:tabSelectedTextColor="@color/brown_box"
-                    app:tabIndicatorColor="@color/brown_box"
-                    app:tabGravity="fill"
-                    app:tabTextAppearance="@style/hint_style"
-                    app:tabIconTint="@color/brown_box"
-                    app:tabIndicatorHeight="0dp"
-                    android:paddingTop="4dp" />
+                android:orientation="vertical"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                android:background="@color/design_default_color_surface"
+                tools:context=".BaseActivity">
 
-            </com.duolingo.open.rtlviewpager.RtlViewPager>
-        </FrameLayout>
-    </LinearLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fragment_container">
+
+                    <com.duolingo.open.rtlviewpager.RtlViewPager
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/viewpager">
+                        <com.google.android.material.tabs.TabLayout
+                            android:id="@+id/pager_header"
+                            android:elevation="@dimen/normal_margin"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_gravity="top"
+                            android:paddingBottom="4dp"
+                            app:tabMode="fixed"
+                            android:backgroundTint="@color/colorPrimaryDark"
+                            app:tabInlineLabel="true"
+                            app:tabIndicatorAnimationDuration="3000"
+                            app:tabIndicator="@color/colorAccent"
+                            app:tabSelectedTextColor="@color/brown_box"
+                            app:tabIndicatorColor="@color/colorAccent"
+                            app:tabGravity="fill"
+                            app:tabTextAppearance="@style/hint_style"
+                            app:tabIconTint="@color/brown_box"
+                            android:paddingTop="4dp" />
+
+                    </com.duolingo.open.rtlviewpager.RtlViewPager>
+                </FrameLayout>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/favorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|left"
+            app:backgroundTint="@color/colorAccent"
+            android:layout_margin="16dp"
+            android:src="@drawable/add"
+            app:elevation="6dp"
+            app:layout_anchorGravity="bottom|left"
+            app:pressedTranslationZ="12dp"
+            app:rippleColor="@android:color/white"/>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigation_view"
         android:layout_width="250dp"

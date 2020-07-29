@@ -1,29 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:weightSum="2.75"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="@dimen/normal_margin"
-        android:layout_marginRight="@dimen/large_margin"
-        android:layout_marginLeft="@dimen/large_margin"
-        android:layout_marginTop="@dimen/large_margin"
-        android:elevation="@dimen/large_margin"
-        app:cardCornerRadius="@dimen/xlarge_margin"
-        android:layout_weight="1.75">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:weightSum="1.75"
-            android:layout_height="match_parent">
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="true"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:layout_margin="5dp"
+    >
+     <LinearLayout
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content"
+         android:weightSum="1"
+         app:layout_behavior="@string/appbar_scrolling_view_behavior"
+         android:orientation="vertical">
 <TextView
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_weight="0.75"
+    android:layout_height="0dp"
+    android:layout_weight=".05"
     android:textColor="@color/brown_box"
     android:textSize="@dimen/title"
     android:padding="@dimen/large_padding"
@@ -34,8 +27,8 @@
     />
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.25"
+        android:layout_height="0dp"
+        android:layout_weight=".05"
         android:textColor="@color/brown_box"
         android:textSize="@dimen/text_size"
         android:id="@+id/month"
@@ -46,10 +39,10 @@
         />
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight=".05"
         android:textColor="@color/brown_box"
         android:textSize="@dimen/text_size"
-        android:layout_weight="0.25"
         android:id="@+id/expense"
         android:padding="@dimen/large_padding"
         android:text="@string/string_expense"
@@ -58,54 +51,69 @@
         />
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:textColor="@color/brown_box"
-        android:layout_weight="0.25"
         android:textSize="@dimen/text_size"
+        android:layout_weight=".05"
         android:id="@+id/income"
         android:padding="@dimen/large_padding"
         android:text="@string/string_income"
         android:layout_gravity="right"
         android:layout_margin="@dimen/normal_margin"
         />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-    <LinearLayout
-        android:layout_weight="1"
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:gravity="center"
-        android:layout_margin="@dimen/normal_margin"
-        android:orientation="horizontal">
-    <com.google.android.material.button.MaterialButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/buttons"
-        app:iconTint="@color/brown_box"
-        app:backgroundTint="@color/colorAccentWithOpacity"
-        android:elevation="@dimen/cardview_default_elevation"
-        android:padding="@dimen/large_padding"
-        android:text="@string/string_new_income"
+        android:layout_weight=".05"
         android:textColor="@color/brown_box"
-        android:layout_gravity="center"
-        app:icon="@drawable/add"
-        android:id="@+id/new_income"
-        android:layout_margin="@dimen/large_margin"/>
-        <com.google.android.material.button.MaterialButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/buttons"
-            app:backgroundTint="@color/colorAccentWithOpacity"
-            app:iconTint="@color/brown_box"
-            android:elevation="@dimen/cardview_default_elevation"
-            android:padding="@dimen/large_padding"
-            android:text="@string/string_new_expense"
-            android:textColor="@color/brown_box"
-            android:layout_gravity="center"
-            app:icon="@drawable/add"
-            android:id="@+id/new_expense"
-            android:layout_margin="@dimen/large_margin"/>
-
-
-    </LinearLayout>
-</LinearLayout>
+        android:layout_marginTop="@dimen/large_margin"
+        android:textSize="@dimen/title"
+        android:textStyle="bold"
+        android:padding="@dimen/large_padding"
+        android:text="@string/string_recent_income"/>
+   <androidx.recyclerview.widget.RecyclerView
+       android:layout_width="match_parent"
+       android:layout_height="0dp"
+       android:layoutDirection="rtl"
+       android:id="@+id/last_incomes"
+       android:layout_weight=".1"
+       android:orientation="horizontal"
+       />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:textColor="@color/brown_box"
+        android:layout_marginTop="@dimen/large_margin"
+        android:textSize="@dimen/title"
+        android:textStyle="bold"
+        android:layout_weight=".05"
+        android:padding="@dimen/large_padding"
+        android:text="@string/string_recent_expense"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layoutDirection="rtl"
+        android:layout_weight=".1"
+        android:id="@+id/last_expenses"
+        android:orientation="horizontal"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".05"
+        android:textColor="@color/brown_box"
+        android:layout_marginTop="@dimen/large_margin"
+        android:textSize="@dimen/title"
+        android:textStyle="bold"
+        android:padding="@dimen/large_padding"
+        android:text="@string/string_recent_reminder"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layoutDirection="rtl"
+        android:id="@+id/last_reminders"
+        android:layout_weight=".05"
+        android:orientation="horizontal"
+        />
+     </LinearLayout>
+</androidx.core.widget.NestedScrollView>

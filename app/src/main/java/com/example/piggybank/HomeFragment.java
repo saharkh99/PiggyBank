@@ -11,30 +11,31 @@ import androidx.fragment.app.Fragment;
 public class HomeFragment extends Fragment {
     View view;
     Button expense,income;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.home_fragment, container, false);
         findView();
-        expense.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ExpenseFragment bottomFragment = new ExpenseFragment();
-                bottomFragment.show(getFragmentManager(), bottomFragment.getTag());
-            }
-        });
-        income.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ExpenseFragment bottomFragment = new ExpenseFragment();
-                bottomFragment.show(getFragmentManager(), bottomFragment.getTag());
-            }
-        });
+//        expense.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                ExpenseFragment bottomFragment = new ExpenseFragment();
+//                bottomFragment.show(getFragmentManager(), bottomFragment.getTag());
+//            }
+//        });
+//        income.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                ExpenseFragment bottomFragment = new ExpenseFragment();
+//                bottomFragment.show(getFragmentManager(), bottomFragment.getTag());
+//            }
+//        });
         return view;
     }
 
     private void findView() {
-        expense=view.findViewById(R.id.new_expense);
-        income=view.findViewById(R.id.new_income);
+       // expense=view.findViewById(R.id.new_expense);
+      //  income=view.findViewById(R.id.new_income);
     }
 }

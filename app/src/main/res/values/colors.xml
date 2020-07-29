@@ -8,6 +8,8 @@
     <color name="colorAccentWithOpacity">#9999B898</color>
     <color name="error_color">#DA645B</color>
     <color name="brown_box">#603F35</color>
+    <color name="brown_box_with_opacity">#CC603F35</color>
+
 
 
 </resources>

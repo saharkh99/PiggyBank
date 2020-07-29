@@ -8,4 +8,5 @@
     <dimen name="large_padding">10dp</dimen>
     <dimen name="text_size">16dp</dimen>
     <dimen name="title">24dp</dimen>
+    <dimen name="tab_animation">3000</dimen>
 </resources>

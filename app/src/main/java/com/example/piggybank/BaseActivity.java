@@ -3,12 +3,14 @@ package com.example.piggybank;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.os.Bundle;
 import android.widget.ImageView;
 
 import com.duolingo.open.rtlviewpager.RtlViewPager;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.tabs.TabLayout;
 
 public class BaseActivity extends AppCompatActivity {
@@ -16,6 +18,7 @@ public class BaseActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
     private ImageView img;
+    private CollapsingToolbarLayout collapsingToolbarLayout;
     private RtlViewPager viewPager;
     private TabLayout tabLayout;
     private int[] tabIcons = {
