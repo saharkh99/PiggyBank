@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.duolingo.open.rtlviewpager.RtlViewPager;

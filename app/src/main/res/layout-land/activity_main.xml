@@ -4,26 +4,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_gravity="top"
     android:background="@color/colorPrimaryWithOpacity"
     android:layout_height="match_parent">
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_gravity="center"
     android:orientation="vertical"
+    android:gravity="top"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_weight="1.5"
         android:weightSum="1.5"
+        android:paddingTop="@dimen/large_margin"
         android:orientation="vertical">
 <ImageView
     android:layout_width="100dp"
     android:layout_height="100dp"
+    android:layout_weight="1"
     android:layout_gravity="center"
     android:src="@drawable/walletlogo"
     android:background="@drawable/circle"/>
@@ -42,8 +44,8 @@
         android:layout_marginTop="25dp"
         android:layout_marginRight="35dp"
         android:layout_marginLeft="35dp"
+        android:layout_marginBottom="40dp"
         android:padding="@dimen/large_padding"
-        app:cardElevation="@dimen/cardview_default_elevation"
         android:layout_gravity="center"
         android:elevation="10dp"
         app:cardCornerRadius="@dimen/xlarge_margin"

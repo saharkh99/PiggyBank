@@ -21,11 +21,19 @@
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:id="@+id/collapsing_toolbar"
                 android:layout_width="match_parent"
+                android:layoutDirection="rtl"
                 android:layout_height="wrap_content"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 android:backgroundTint="@color/colorPrimaryDark"
                 android:background="@color/colorPrimaryDark"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_gravity="left"
+                   android:gravity="left"
+                   android:orientation="vertical"
+                   >
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
@@ -33,27 +41,31 @@
                     app:layout_collapseMode="pin"
                     app:layout_scrollFlags="scroll|exitUntilCollapsed"
                     android:padding="@dimen/large_padding"
+                    android:layout_gravity="left"
                     app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                     app:contentInsetStartWithNavigation="0dp"
                     android:background="@color/colorPrimaryDark"
                     >
-                    <ImageButton
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/large_padding"
                         android:src="@drawable/calender"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentBottom="true"
                         android:backgroundTint="@color/colorPrimaryDark"
                         />
+                    </RelativeLayout>
                 </androidx.appcompat.widget.Toolbar>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
+                    android:layout_gravity="bottom|end"
                     android:layout_marginTop="@dimen/normal_margin"
                     android:gravity="center"
-                    android:padding="@dimen/large_padding"
                     android:layoutDirection="ltr"
-                    android:layout_margin="@dimen/normal_margin"
                     android:orientation="horizontal">
 
 
@@ -61,10 +73,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:scaleType="fitCenter"
+                        android:layout_margin="@dimen/normal_margin"
                         android:id="@+id/imgview"
                         android:background="@drawable/circle"
-                        android:padding="@dimen/large_padding"
+                        android:padding="@dimen/xlarge_margin"
                         android:src="@drawable/user"
                         />
                     <TextView
@@ -77,6 +89,7 @@
                         android:textSize="@dimen/text_size"
                         android:textStyle="bold" />
 
+                </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
