@@ -1,12 +1,14 @@
 package com.example.piggybank.model;
 
+import android.graphics.drawable.Drawable;
+
 public class Transaction {
 
    private int id;
    private double amount;
-   private String type;
+   private Drawable type;
 
-   public Transaction(double amount,String type){
+   public Transaction(double amount,Drawable type){
        this.type=type;
        this.amount=amount;
    }
@@ -26,11 +28,11 @@ public class Transaction {
         this.amount = amount;
     }
 
-    public String getType() {
+    public Drawable getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(Drawable type) {
         this.type = type;
     }
 }

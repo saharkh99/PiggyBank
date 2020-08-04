@@ -8,15 +8,19 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
+
 public class HomeFragment extends Fragment {
     View view;
     Button expense,income;
+    RecyclerView  lastExpenseRecycle,lastIncomeRecycle,lastReminderRecycle;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.home_fragment, container, false);
         findView();
+
 //        expense.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -35,6 +39,10 @@ public class HomeFragment extends Fragment {
     }
 
     private void findView() {
+        lastExpenseRecycle=view.findViewById(R.id.last_expenses);
+        lastIncomeRecycle=view.findViewById(R.id.last_incomes);
+        lastReminderRecycle=view.findViewById(R.id.last_reminders);
+
        // expense=view.findViewById(R.id.new_expense);
       //  income=view.findViewById(R.id.new_income);
     }

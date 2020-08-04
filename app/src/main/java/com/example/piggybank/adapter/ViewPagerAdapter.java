@@ -1,4 +1,4 @@
-package com.example.piggybank;
+package com.example.piggybank.adapter;
 
 import android.graphics.drawable.Drawable;
 

@@ -69,7 +69,7 @@
                     android:orientation="horizontal">
 
 
-                    <com.example.piggybank.SquareImgView
+                    <com.example.piggybank.ui.SquareImgView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -143,12 +143,41 @@
             </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/add_money"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_margin="20dp"
+                android:layout_gravity="bottom|end"
+                android:src="@drawable/money"
+                android:backgroundTint="@color/colorAccent"
+                android:padding="@dimen/normal_margin"
+                app:elevation="6dp"
+                app:fabCustomSize="45dp"
+                app:layout_anchorGravity="bottom|left"
+                app:pressedTranslationZ="12dp"
+                app:rippleColor="@android:color/white"/>
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/favorite"
+            android:id="@+id/add_cost"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_margin="20dp"
+            app:borderWidth="0dp"
+            android:layout_gravity="bottom|end"
+            android:src="@drawable/shopping"
+            android:backgroundTint="@color/colorAccent"
+            android:padding="@dimen/normal_margin"
+            app:elevation="6dp"
+            app:fabCustomSize="45dp"
+            app:pressedTranslationZ="12dp"
+            app:layout_anchorGravity="bottom|left"
+            app:rippleColor="@android:color/white"/>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|left"
             app:backgroundTint="@color/colorAccent"
+            android:layout_gravity="bottom|left"
             android:layout_margin="16dp"
             android:src="@drawable/add"
             app:elevation="6dp"
