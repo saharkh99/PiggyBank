@@ -1,16 +1,21 @@
 package com.example.piggybank;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.ProgressDialog;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.duolingo.open.rtlviewpager.RtlViewPager;
 import com.example.piggybank.adapter.ViewPagerAdapter;
+import com.example.piggybank.ui.Progress;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
@@ -29,6 +34,7 @@ public class BaseActivity extends AppCompatActivity {
             R.drawable.home,
             R.drawable.report
     };
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +52,8 @@ public class BaseActivity extends AppCompatActivity {
                 setupTabIcons();
             }
         });
+        ProgressBar progressBar=new ProgressBar(this);
+        progressBar.setProgressDrawable(getDrawable(R.drawable.coin));
     }
 
     private void addIncome() {
