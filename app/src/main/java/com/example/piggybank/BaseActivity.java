@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,7 +22,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
 public class BaseActivity extends AppCompatActivity {
-
     private boolean isMenuOpen=false;
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
@@ -60,7 +60,7 @@ public class BaseActivity extends AppCompatActivity {
         floatIncome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NewItemFragment bottomFragment = new NewItemFragment(false);
+                final NewItemFragment bottomFragment = new NewItemFragment(false);
                 bottomFragment.show(getSupportFragmentManager(), bottomFragment.getTag());            }
         });
     }

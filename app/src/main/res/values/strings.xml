@@ -23,4 +23,7 @@
     <string name="string_title">عنوان</string>
     <string name="string_date">تاریخ</string>
     <string name="string_description">توضیح</string>
+    <string name="string_picking_color">انتخاب رنگ</string>
+    <string name="string_accept">تایید</string>
+    <string name="string_reject">انصراف</string>
 </resources>

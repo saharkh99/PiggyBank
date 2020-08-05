@@ -115,7 +115,6 @@
             android:textColor="@color/colorAccent"/>
         <Button
             android:layout_width="0dp"
-            android:textColor="@color/brown_box"
             android:layout_height="wrap_content"
             android:id="@+id/color_picker"
             android:layout_weight=".3"/>
