@@ -1,22 +1,16 @@
 package com.example.piggybank.adapter;
-
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.piggybank.R;
 
-import java.util.List;
+public class IconPickerAdapter extends RecyclerView.Adapter<IconPickerAdapter.ItemViewHolder> {
 
-public class ItemPickerAdapter extends RecyclerView.Adapter<ItemPickerAdapter.ItemViewHolder> {
-
-    int colors[];
+    int icons[];
     Context context;
     private onItemClickListener mlistener;
     public interface onItemClickListener{
@@ -25,11 +19,11 @@ public class ItemPickerAdapter extends RecyclerView.Adapter<ItemPickerAdapter.It
     public  void setOnItemClickListener(onItemClickListener listener){
         mlistener=listener;
     }
-    public ItemPickerAdapter(int[] colors, Context context) {
-        this.colors = colors;
+
+    public IconPickerAdapter(int[] icons, Context context) {
+        this.icons = icons;
         this.context = context;
     }
-
     @NonNull
     @Override
     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -39,13 +33,16 @@ public class ItemPickerAdapter extends RecyclerView.Adapter<ItemPickerAdapter.It
 
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
-        Log.d("color", colors[position]+"");
-        holder.img.setImageResource(colors[position]);
+
+            holder.img.setImageResource(icons[position]);
+
     }
 
     @Override
     public int getItemCount() {
-        return colors.length;
+
+            return icons.length;
+
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {
@@ -59,8 +56,10 @@ public class ItemPickerAdapter extends RecyclerView.Adapter<ItemPickerAdapter.It
                 public void onClick(View view) {
 
                     if(listener!=null){
-                        int position=getAdapterPosition();
-                        listener.onItemClick(position);
+
+                            int position1 = getAdapterPosition();
+                            listener.onItemClick(position1);
+
                     }
                 }
             });

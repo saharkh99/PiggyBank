@@ -6,13 +6,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import com.example.piggybank.ui.ColorPickerFragment;
+import com.example.piggybank.ui.IconPickerFragment;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 public class NewItemFragment extends BottomSheetDialogFragment {
     private RadioButton incomeRadio,expenseRadio;
     private boolean isCost=true;
     private Button colorPicker;
+    private ImageView iconPicker;
     private View view;
 
     public NewItemFragment(boolean isCost) {
@@ -26,8 +29,10 @@ public class NewItemFragment extends BottomSheetDialogFragment {
         findView();
         setRadio();
         chooseColor();
+        chooseIcon();
         return view;
     }
+
     private void chooseColor() {
         colorPicker.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,17 +45,34 @@ public class NewItemFragment extends BottomSheetDialogFragment {
         });
     }
 
+    private void chooseIcon() {
+        iconPicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                IconPickerFragment iconPickerFragment=new IconPickerFragment();
+                iconPickerFragment.setTargetFragment(NewItemFragment.this, 2);
+                iconPickerFragment.show(getFragmentManager(), "icon_show");
+
+            }
+        });
+    }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case 1:
+
+            if(requestCode==1) {
+                if (resultCode == Activity.RESULT_OK) {
+                    Bundle bundle = data.getExtras();
+                    int resultDate = bundle.getInt("selectedColor", 0);
+                    colorPicker.setBackgroundColor(resultDate);
+                }
+            }
+            else if(requestCode==2) {
                 if (resultCode == Activity.RESULT_OK) {
                     Bundle bundle = data.getExtras();
                     int resultDate = bundle.getInt("selectedDate", 0);
-                    colorPicker.setBackgroundColor(resultDate);
+                    iconPicker.setImageResource(resultDate);
                 }
-                break;
-        }
+            }
     }
     private void setRadio() {
         if(isCost){
@@ -63,6 +85,7 @@ public class NewItemFragment extends BottomSheetDialogFragment {
     }
 
     private void findView() {
+        iconPicker=view.findViewById(R.id.icon_picker);
         incomeRadio=view.findViewById(R.id.radio_income);
         expenseRadio=view.findViewById(R.id.radio_expense);
         colorPicker=view.findViewById(R.id.color_picker);

@@ -1,10 +1,12 @@
 package com.example.piggybank.ui;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
@@ -12,41 +14,37 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.piggybank.R;
 import com.example.piggybank.adapter.ColorPickerAdapter;
-public class ColorPickerFragment extends DialogFragment {
+import com.example.piggybank.adapter.IconPickerAdapter;
+
+public class IconPickerFragment extends DialogFragment {
     View view;
-    static Bundle args=new Bundle();
-    static ColorPickerFragment fragment = new ColorPickerFragment();
-    int[] colors={R.color.color1,R.color.color2,R.color.color3,R.color.color4,R.color.color5,R.color.color6,
-            R.color.color7,R.color.color8,R.color.color9,R.color.color10,R.color.color11,R.color.color12};
+    int[] icons={R.drawable.ambulance,R.drawable.barbershop,R.drawable.bill,R.drawable.cardexchange,R.drawable.check,R.drawable.clothes
+            , R.drawable.food,R.drawable.gasstation,R.drawable.gift,R.drawable.income,R.drawable.internet,R.drawable.transport};
     RecyclerView recyclerView;
-    ColorPickerAdapter adapter;
+    IconPickerAdapter adapter;
+    private TextView title;
     private static int index;
-    public static ColorPickerFragment newInstance() {
-        fragment.setArguments(args);
-        return fragment;
-    }
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.color_picker_fragment, container, false);
         findView();
+        title.setText("نوع هزینه");
         setRecyclerView();
         getDialog().setTitle("انتخاب رنگ");
         getDialog().setContentView(R.layout.color_picker_fragment);
         return  view;
     }
-
     private void setRecyclerView() {
-        adapter=new ColorPickerAdapter(colors,this.getContext());
-        adapter.setOnItemClickListener(new ColorPickerAdapter.onItemClickListener(){
+        adapter=new IconPickerAdapter(icons,getActivity());
+        adapter.setOnItemClickListener(new IconPickerAdapter.onItemClickListener(){
             @Override
             public void onItemClick(int position) {
-                    index=position;
+                    index = position;
                     Intent intent = new Intent();
-                    intent.putExtra("selectedColor", getResources().getColor(colors[index]));
+                    intent.putExtra("selectedDate", icons[index]);
                     getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
                     getFragmentManager().popBackStackImmediate();
-
             }
         });
         RecyclerView.LayoutManager manager = new GridLayoutManager(getActivity(),4);
@@ -56,6 +54,7 @@ public class ColorPickerFragment extends DialogFragment {
 
     private void findView() {
         recyclerView= view.findViewById(R.id.recycle);
+        title=view.findViewById(R.id.title_dialog);
 
     }
 }

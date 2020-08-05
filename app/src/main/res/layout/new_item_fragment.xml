@@ -92,7 +92,7 @@
             android:src="@drawable/shopping"
             android:scaleType="fitXY"
             android:clickable="true"
-            android:id="@+id/type_picker"
+            android:id="@+id/icon_picker"
             android:layout_height="wrap_content"
             android:layout_weight=".3"/>
     </LinearLayout>
