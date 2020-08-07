@@ -1,15 +1,20 @@
 package com.example.piggybank;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import com.example.piggybank.Network.SaveItems;
 import com.example.piggybank.ui.ColorPickerFragment;
 import com.example.piggybank.ui.IconPickerFragment;
+import com.example.piggybank.ui.Progress;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 public class NewItemFragment extends BottomSheetDialogFragment {
     private RadioButton incomeRadio,expenseRadio;
@@ -17,6 +22,11 @@ public class NewItemFragment extends BottomSheetDialogFragment {
     private Button colorPicker;
     private ImageView iconPicker;
     private View view;
+    private ImageButton save;
+    private EditText amount;
+    private double amountDouble;
+    private Progress progress;
+    private int resultDate;
 
     public NewItemFragment(boolean isCost) {
         this.isCost=isCost;
@@ -30,7 +40,36 @@ public class NewItemFragment extends BottomSheetDialogFragment {
         setRadio();
         chooseColor();
         chooseIcon();
+        saveItem();
         return view;
+    }
+    private void saveItem() {
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (checkCorrectly()) {
+                    if (expenseRadio.isChecked()) {
+                        SaveItems.saveCost(amountDouble, resultDate, "shopping", "u1", progress);
+                        //seekbar
+                    } else
+                        SaveItems.saveIncome(amountDouble,resultDate,"shopping","u1", progress);
+                       //seakbar
+                }
+            }
+        });
+    }
+
+    private boolean checkCorrectly() {
+        if(amount!=null ){
+            try{
+               amountDouble= Double.parseDouble(amount.getText().toString().trim());
+               return true;
+            }catch(Exception e){
+                return false;
+            }
+        }
+        else
+            return false;
     }
 
     private void chooseColor() {
@@ -62,7 +101,7 @@ public class NewItemFragment extends BottomSheetDialogFragment {
             if(requestCode==1) {
                 if (resultCode == Activity.RESULT_OK) {
                     Bundle bundle = data.getExtras();
-                    int resultDate = bundle.getInt("selectedColor", 0);
+                    resultDate = bundle.getInt("selectedColor", 0);
                     colorPicker.setBackgroundColor(resultDate);
                 }
             }
@@ -89,6 +128,9 @@ public class NewItemFragment extends BottomSheetDialogFragment {
         incomeRadio=view.findViewById(R.id.radio_income);
         expenseRadio=view.findViewById(R.id.radio_expense);
         colorPicker=view.findViewById(R.id.color_picker);
+        save=view.findViewById(R.id.save_item);
+        amount=view.findViewById(R.id.amount_item);
+        progress=view.findViewById(R.id.progress);
     }
 }
 

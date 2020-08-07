@@ -31,7 +31,6 @@ public class ColorPickerFragment extends DialogFragment {
         view = inflater.inflate(R.layout.color_picker_fragment, container, false);
         findView();
         setRecyclerView();
-        getDialog().setTitle("انتخاب رنگ");
         getDialog().setContentView(R.layout.color_picker_fragment);
         return  view;
     }

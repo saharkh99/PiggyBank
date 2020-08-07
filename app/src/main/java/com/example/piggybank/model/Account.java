@@ -1,6 +1,7 @@
 package com.example.piggybank.model;
 
 public class Account {
+
     private int id;
     private double amount;
 

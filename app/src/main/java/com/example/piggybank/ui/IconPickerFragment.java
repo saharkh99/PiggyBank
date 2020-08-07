@@ -31,7 +31,6 @@ public class IconPickerFragment extends DialogFragment {
         findView();
         title.setText("نوع هزینه");
         setRecyclerView();
-        getDialog().setTitle("انتخاب رنگ");
         getDialog().setContentView(R.layout.color_picker_fragment);
         return  view;
     }

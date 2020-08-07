@@ -45,6 +45,7 @@ public class Progress extends View{
         paint.setStyle(Paint.Style.STROKE);
         canvas.drawCircle(100, 100, 50, paint);
         canvas.drawCircle(100, 100, 50, paint1);
+        setBlur(true);
     }
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -66,7 +67,7 @@ public class Progress extends View{
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         animation();
-        setBlur();
+    //    setBlur(true);
     }
     public void animation(){
        ObjectAnimator animation = ObjectAnimator.ofFloat(
@@ -76,7 +77,8 @@ public class Progress extends View{
        animation.setInterpolator(new AccelerateDecelerateInterpolator());
        animation.start();
    }
-    public void setBlur(){
+    public void setBlur(boolean bool){
+        if(bool)
         getRootView().setAlpha(0.8f);
     }
 
