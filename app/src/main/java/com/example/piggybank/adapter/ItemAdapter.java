@@ -13,7 +13,6 @@ import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.piggybank.R;
-import com.example.piggybank.model.Expense;
 import com.example.piggybank.model.Transaction;
 
 import java.util.List;
@@ -39,9 +38,9 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
-       Expense expense= (Expense) transactions.get(position);
-       holder.img.setImageDrawable(expense.getType());
-       holder.amount.setText(String.valueOf(expense.getAmount()));
+      // Expense expense= (Expense) transactions.get(position);
+      // holder.img.setImageDrawable(expense.getType());
+     //  holder.amount.setText(String.valueOf(expense.getAmount()));
        holder.title.setText(title);
     }
 

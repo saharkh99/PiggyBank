@@ -1,5 +1,6 @@
 package com.example.piggybank;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.piggybank.Network.InternetConnection;
+import com.example.piggybank.Network.LoadItems;
 
 public class HomeFragment extends Fragment {
     View view;
@@ -20,21 +24,6 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.home_fragment, container, false);
         findView();
-
-//        expense.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                ExpenseFragment bottomFragment = new ExpenseFragment();
-//                bottomFragment.show(getFragmentManager(), bottomFragment.getTag());
-//            }
-//        });
-//        income.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                ExpenseFragment bottomFragment = new ExpenseFragment();
-//                bottomFragment.show(getFragmentManager(), bottomFragment.getTag());
-//            }
-//        });
         return view;
     }
 

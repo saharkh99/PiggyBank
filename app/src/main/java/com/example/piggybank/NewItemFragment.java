@@ -1,6 +1,7 @@
 package com.example.piggybank;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,6 +17,8 @@ import com.example.piggybank.ui.ColorPickerFragment;
 import com.example.piggybank.ui.IconPickerFragment;
 import com.example.piggybank.ui.Progress;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.snackbar.Snackbar;
+
 public class NewItemFragment extends BottomSheetDialogFragment {
     private RadioButton incomeRadio,expenseRadio;
     private boolean isCost=true;
@@ -26,6 +29,7 @@ public class NewItemFragment extends BottomSheetDialogFragment {
     private EditText amount;
     private double amountDouble;
     private Progress progress;
+    private boolean resultCost,resultIncome;
     private int resultDate;
 
     public NewItemFragment(boolean isCost) {
@@ -49,11 +53,31 @@ public class NewItemFragment extends BottomSheetDialogFragment {
             public void onClick(View view) {
                 if (checkCorrectly()) {
                     if (expenseRadio.isChecked()) {
-                        SaveItems.saveCost(amountDouble, resultDate, "shopping", "u1", progress);
-                        //seekbar
+                        SaveItems.saveCost(amountDouble, resultDate, "shopping", "u1", progress, new SaveItems.onSaveItem() {
+                            @Override
+                            public void onItemClick(boolean result) {
+                                resultCost=result;
+                                if(result){
+                                    Snackbar snackBar = Snackbar .make(getView(), "هزینه اضافه شد", Snackbar.LENGTH_LONG) ;
+                                    snackBar.setActionTextColor(Color.GREEN);
+                                    snackBar.show();
+                                }
+                            }
+                        });
+
                     } else
-                        SaveItems.saveIncome(amountDouble,resultDate,"shopping","u1", progress);
-                       //seakbar
+                        SaveItems.saveIncome(amountDouble, resultDate, "shopping", "u1", progress, new SaveItems.onSaveItem() {
+                            @Override
+                            public void onItemClick(boolean result) {
+                                resultIncome=result;
+                                if(resultIncome){
+                                    Snackbar snackBar = Snackbar .make(getView(), "درامد اضافه شد", Snackbar.LENGTH_LONG) ;
+                                    snackBar.setActionTextColor(Color.GREEN);
+                                    snackBar.show();
+                                }
+                            }
+                        });
+
                 }
             }
         });

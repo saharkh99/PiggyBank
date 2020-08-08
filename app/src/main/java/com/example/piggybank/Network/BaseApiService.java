@@ -1,5 +1,6 @@
 package com.example.piggybank.Network;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.util.List;
@@ -29,11 +30,9 @@ public interface BaseApiService {
 
     );
 
-    @FormUrlEncoded
     @GET("wallet/lastCost.php")
     Call<JsonObject> getLastCosts();
 
-    @FormUrlEncoded
     @GET("wallet/lastIncomes.php")
     Call<JsonObject> getLastIncomes();
 
