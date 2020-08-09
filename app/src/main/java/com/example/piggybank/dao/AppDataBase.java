@@ -6,7 +6,7 @@ import androidx.room.RoomDatabase;
 import com.example.piggybank.model.MonthlyReport;
 import com.example.piggybank.model.Transaction;
 
-@Database(entities = {Transaction.class}, version = 1)
+@Database(entities = {Transaction.class,MonthlyReport.class}, version = 2)
 public abstract class AppDataBase extends RoomDatabase {
     public abstract LastItemsDAO getItemDAO();
 }

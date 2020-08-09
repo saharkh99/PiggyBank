@@ -95,6 +95,7 @@ public class LoadItems {
             transaction.setIdAccount(js.getString("idAccount"));
             transaction.setType(js.getString("type"));
             transaction.setItemType("cost");
+            transaction.setDates("dates");
             itemDAO.insert(transaction);
         }
     }

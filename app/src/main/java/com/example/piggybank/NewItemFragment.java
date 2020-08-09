@@ -53,7 +53,7 @@ public class NewItemFragment extends BottomSheetDialogFragment {
             public void onClick(View view) {
                 if (checkCorrectly()) {
                     if (expenseRadio.isChecked()) {
-                        SaveItems.saveCost(amountDouble, resultDate, "shopping", "u1", progress, new SaveItems.onSaveItem() {
+                        SaveItems.saveCost(amountDouble, resultDate, "shopping", "u1","3,esf,1399", progress, new SaveItems.onSaveItem() {
                             @Override
                             public void onItemClick(boolean result) {
                                 resultCost=result;
@@ -66,7 +66,7 @@ public class NewItemFragment extends BottomSheetDialogFragment {
                         });
 
                     } else
-                        SaveItems.saveIncome(amountDouble, resultDate, "shopping", "u1", progress, new SaveItems.onSaveItem() {
+                        SaveItems.saveIncome(amountDouble, resultDate, "shopping", "u1","3,esf,1399", progress, new SaveItems.onSaveItem() {
                             @Override
                             public void onItemClick(boolean result) {
                                 resultIncome=result;

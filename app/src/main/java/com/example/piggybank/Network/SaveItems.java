@@ -19,11 +19,11 @@ public class SaveItems {
         mlistener=listener;
     }
 
-    public static void saveCost(double amount, int color, String type, String idAccount, final Progress progress,final onSaveItem listener){
+    public static void saveCost(double amount, int color, String type, String idAccount,String dates, final Progress progress,final onSaveItem listener){
     BaseApiService mApiService;
     progress.setVisibility(View.VISIBLE);
     mApiService = UtilsApi.getAPIService();
-    mApiService.saveCost(amount,color,type, idAccount).enqueue(new Callback<JsonObject>() {
+    mApiService.saveCost(amount,color,type, idAccount,dates).enqueue(new Callback<JsonObject>() {
         @Override
         public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
             progress.setVisibility(View.GONE);
@@ -53,11 +53,11 @@ public class SaveItems {
     });
     listener.onItemClick(result);
 }
-    public static void saveIncome(double amount, int color, String type, String idAccount, final Progress progress,final onSaveItem mlistener){
+    public static void saveIncome(double amount, int color, String type, String idAccount,String dates, final Progress progress,final onSaveItem mlistener){
         BaseApiService mApiService;
         progress.setVisibility(View.VISIBLE);
         mApiService = UtilsApi.getAPIService();
-        mApiService.saveIncome(amount,color,type, idAccount).enqueue(new Callback<JsonObject>() {
+        mApiService.saveIncome(amount,color,type, idAccount,dates).enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 progress.setVisibility(View.GONE);

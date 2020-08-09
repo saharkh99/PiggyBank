@@ -1,10 +1,6 @@
 package com.example.piggybank.Network;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -18,7 +14,8 @@ public interface BaseApiService {
     Call<JsonObject> saveCost(@Field("amount") double amount,
                               @Field("color") int color,
                               @Field("type") String type,
-                              @Field("idAccount") String idAccount
+                              @Field("idAccount") String idAccount,
+                              @Field("dates")String dates
 
     );
     @FormUrlEncoded
@@ -26,7 +23,9 @@ public interface BaseApiService {
     Call<JsonObject> saveIncome(@Field("amount") double amount,
                                 @Field("color") int color,
                                 @Field("type") String type,
-                                @Field("idAccount") String idAccount
+                                @Field("idAccount") String idAccount,
+                                @Field("dates")String dates
+
 
     );
 
@@ -35,5 +34,11 @@ public interface BaseApiService {
 
     @GET("wallet/lastIncomes.php")
     Call<JsonObject> getLastIncomes();
+
+    @FormUrlEncoded
+    @POST("wallet/monthlyReport.php")
+    Call<JsonObject>getMonthlyReport(
+            @Field("month") String month
+            );
 
 }
