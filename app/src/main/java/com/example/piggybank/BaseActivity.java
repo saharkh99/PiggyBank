@@ -15,13 +15,14 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.duolingo.open.rtlviewpager.RtlViewPager;
+import com.example.piggybank.FontPart.BaseContext;
 import com.example.piggybank.adapter.ViewPagerAdapter;
 import com.example.piggybank.ui.Progress;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
-public class BaseActivity extends AppCompatActivity {
+public class BaseActivity extends BaseContext {
     private boolean isMenuOpen=false;
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;

@@ -1,6 +1,8 @@
 package com.example.piggybank.Network;
 
 import com.google.gson.JsonObject;
+
+import io.reactivex.Single;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -37,7 +39,7 @@ public interface BaseApiService {
 
     @FormUrlEncoded
     @POST("wallet/monthlyReport.php")
-    Call<JsonObject>getMonthlyReport(
+    Single<JsonObject> getMonthlyReport(
             @Field("month") String month
             );
 

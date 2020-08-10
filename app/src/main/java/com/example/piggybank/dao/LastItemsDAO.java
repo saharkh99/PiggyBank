@@ -9,6 +9,8 @@ import androidx.room.Update;
 import com.example.piggybank.model.MonthlyReport;
 import com.example.piggybank.model.Transaction;
 
+import io.reactivex.Single;
+
 @Dao
 public interface LastItemsDAO {
     @Insert
@@ -33,5 +35,5 @@ public interface LastItemsDAO {
     public MonthlyReport getItemById();
 
     @Query("SELECT * FROM MonthlyReport")
-    public MonthlyReport getReport();
+    public Single<MonthlyReport> getReport();
 }
