@@ -2,9 +2,6 @@ package com.example.piggybank.Network;
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.TextView;
-
-import androidx.room.Room;
 
 import com.example.piggybank.dao.AppDataBase;
 import com.example.piggybank.dao.LastItemsDAO;
@@ -20,14 +17,14 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 
-public class SaveReport {
+public class LoadReport {
     private static boolean bool = false;
     private static Disposable disposable;
-    private SaveReport.onSaveItem mlistener;
+    private LoadReport.onSaveItem mlistener;
     public interface onSaveItem{
         void onItemClick(boolean result,String month,String balance,String expense,String income);
     }
-    public  void saveOnItemListener(SaveReport.onSaveItem listener){
+    public  void saveOnItemListener(LoadReport.onSaveItem listener){
         mlistener=listener;
     }
 
@@ -56,11 +53,10 @@ public class SaveReport {
                             String res2 = jsObject.getString("sumIncome");
                             JSONArray jsonArray = new JSONArray(res);
                             JSONArray jsonArray2 = new JSONArray(res2);
-                            AppDataBase database = Room.databaseBuilder(context, AppDataBase.class, "mydb")
-                                    .allowMainThreadQueries()
-                                    .build();
-                            LastItemsDAO itemDAO = database.getItemDAO();
-                           // itemDAO.nukeMTable();
+                            AppDataBase db;
+                            db = AppDataBase.getDatabase(context);
+                            LastItemsDAO itemsDAO = db.getItemDAO();
+                           itemsDAO.nukeMTableReport();
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject js = jsonArray.getJSONObject(i);
                                 totalExpense = js.getDouble("SUM(amount)");
@@ -77,18 +73,16 @@ public class SaveReport {
                             monthlyReport.setBalance(totalIncome - totalExpense);
                             monthlyReport.setIdAccount("u1");
                             monthlyReport.setMonth("esf");
-                         //   itemDAO.insert(monthlyReport);
-                          //  Log.d("dao", itemDAO.getItemById().getBalance() + "");
+
+                            itemsDAO.insertReport(monthlyReport);
                             bool = true;
                             listener.onItemClick(bool,month,String.valueOf(totalIncome - totalExpense),String.valueOf(totalIncome)
                             ,String.valueOf(totalExpense));
-                            Log.d("omad", totalExpense+"");
-
                         } catch (Exception e) {
                             bool = false;
-                            e.getStackTrace();
+
+                            e.printStackTrace();
                         }
-                       // disposable.dispose();
                     }
 
                     @Override

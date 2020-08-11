@@ -16,7 +16,7 @@ public interface LastItemsDAO {
     @Insert
     public void insert(Transaction... items);
     @Insert
-    public void insert(MonthlyReport... items);
+    public void insertReport(MonthlyReport... monthlyReports);
     @Update
     public void update(Transaction... items);
     @Delete
@@ -25,14 +25,14 @@ public interface LastItemsDAO {
     @Query("DELETE FROM items")
     public void nukeTable();
 
-    @Query("DELETE FROM monthlyreport")
-    public void nukeMTable();
+    @Query("DELETE FROM MonthlyReport")
+    public void nukeMTableReport();
 
     @Query("SELECT * FROM items WHERE id = :id")
     public Transaction getItemById(int id);
 
-    @Query("SELECT * FROM MonthlyReport ")
-    public MonthlyReport getItemById();
+ //   @Query("SELECT * FROM items ")
+   // public MonthlyReport getItemById();
 
     @Query("SELECT * FROM MonthlyReport")
     public Single<MonthlyReport> getReport();

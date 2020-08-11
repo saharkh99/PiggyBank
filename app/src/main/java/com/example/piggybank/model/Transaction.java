@@ -17,6 +17,7 @@ public class Transaction {
     private String idAccount;
     private String itemType;
     private String dates;
+
     public String getDates() {
         return dates;
     }
@@ -24,6 +25,7 @@ public class Transaction {
     public void setDates(String dates) {
         this.dates = dates;
     }
+
     public String getItemType() {
         return itemType;
     }

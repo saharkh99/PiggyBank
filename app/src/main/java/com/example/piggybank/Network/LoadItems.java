@@ -1,7 +1,7 @@
 package com.example.piggybank.Network;
+
 import android.content.Context;
 import android.util.Log;
-import androidx.room.Room;
 import com.example.piggybank.dao.AppDataBase;
 import com.example.piggybank.dao.LastItemsDAO;
 import com.example.piggybank.model.Transaction;
@@ -9,81 +9,91 @@ import com.google.gson.JsonObject;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.io.IOException;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import io.reactivex.SingleObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
 public class LoadItems {
-    public static void getItem(Context context,boolean IsCost){
+    private LoadItems.onSaveItem mlistener;
+    static List<Transaction>transactions=new ArrayList<>() ;
+
+    public interface onSaveItem{
+        void onItemClick(boolean result, List<Transaction>transactions);
+    }
+    public  void saveOnItemListener(LoadItems.onSaveItem listener){
+        mlistener=listener;
+    }
+
+    public static void getItem(Context context, boolean IsCost,onSaveItem mlistener) {
         BaseApiService mApiService;
-       // progress.setVisibility(View.VISIBLE);
         mApiService = UtilsApi.getAPIService();
         if (IsCost) {
-            mApiService.getLastCosts().enqueue(new Callback<JsonObject>() {
-                @Override
-                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                    //  progress.setVisibility(View.GONE);
-                    if (response.isSuccessful()) {
-                        try {
-                            if (response.code() == 400) {
-                                Log.d("Error code 400", response.errorBody().string());
-                            }
-                            JSONObject jsonObject = new JSONObject(response.body().toString());
-                            String res = jsonObject.getString("costs");
-                            parseJson(context, res, "cost");
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        } catch (IOException e) {
-                            e.printStackTrace();
+            mApiService.getLastCosts()
+                    .subscribeOn(Schedulers.newThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new SingleObserver<JsonObject>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+
                         }
 
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<JsonObject> call, Throwable t) {
-                    Log.e("debug", "onFailure: ERROR > " + t.toString());
-                    t.printStackTrace();
-                }
-            });
-        }
-        else{
-            mApiService.getLastIncomes().enqueue(new Callback<JsonObject>() {
-                @Override
-                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                    //  progress.setVisibility(View.GONE);
-                    if (response.isSuccessful()) {
-                        try {
-                            if (response.code() == 400) {
-                                Log.d("Error code 400", response.errorBody().string());
+                        @Override
+                        public void onSuccess(JsonObject jsonObject) {
+                            try {
+                                JSONObject js = new JSONObject(jsonObject.toString());
+                                String res = js.getString("costs");
+                                parseJson(context, res, "cost",IsCost,mlistener);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                            JSONObject jsonObject = new JSONObject(response.body().toString());
-                            String res = jsonObject.getString("costs");
-                            parseJson(context, res, "cost");
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        } catch (IOException e) {
-                            e.printStackTrace();
                         }
 
-                    }
-                }
+                        @Override
+                        public void onError(Throwable e) {
+                            e.printStackTrace();
+                        }
+                    });
 
-                @Override
-                public void onFailure(Call<JsonObject> call, Throwable t) {
-                    Log.e("debug", "onFailure: ERROR > " + t.toString());
-                    t.printStackTrace();
-                }
-            });
+
+        } else {
+            mApiService.getLastIncomes()
+                    .subscribeOn(Schedulers.newThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new SingleObserver<JsonObject>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+
+                        }
+
+                        @Override
+                        public void onSuccess(JsonObject jsonObject) {
+                            try {
+                                JSONObject js = new JSONObject(jsonObject.toString());
+                                String res = js.getString("income");
+                                parseJson(context, res, "income",IsCost,mlistener);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            e.printStackTrace();
+                        }
+                    });
         }
     }
 
-    private static void parseJson(Context context, String res, String type) throws JSONException {
+    private static void parseJson(Context context, String res, String type,boolean IsCost,final onSaveItem listener) throws JSONException {
         JSONArray jsonArray = new JSONArray(res);
-        AppDataBase database = Room.databaseBuilder(context, AppDataBase.class, "mydb")
-                .allowMainThreadQueries()
-                .build();
-        LastItemsDAO itemDAO = database.getItemDAO();
+        AppDataBase db;
+        db = AppDataBase.getDatabase(context);
+        LastItemsDAO itemDAO = db.getItemDAO();
         itemDAO.nukeTable();
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject js = jsonArray.getJSONObject(i);
@@ -95,8 +105,13 @@ public class LoadItems {
             transaction.setIdAccount(js.getString("idAccount"));
             transaction.setType(js.getString("type"));
             transaction.setItemType("cost");
+            transaction.setItemType(String.valueOf(IsCost));
             transaction.setDates("dates");
             itemDAO.insert(transaction);
+            transactions.add(transaction);
+
         }
+        listener.onItemClick(true,transactions);
+
     }
 }

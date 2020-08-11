@@ -32,10 +32,10 @@ public interface BaseApiService {
     );
 
     @GET("wallet/lastCost.php")
-    Call<JsonObject> getLastCosts();
+    Single<JsonObject> getLastCosts();
 
     @GET("wallet/lastIncomes.php")
-    Call<JsonObject> getLastIncomes();
+    Single<JsonObject> getLastIncomes();
 
     @FormUrlEncoded
     @POST("wallet/monthlyReport.php")

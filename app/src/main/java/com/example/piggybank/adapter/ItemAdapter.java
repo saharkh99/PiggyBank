@@ -1,6 +1,7 @@
 package com.example.piggybank.adapter;
 
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,17 +16,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.piggybank.R;
 import com.example.piggybank.model.Transaction;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder>{
     private Context context;
-    private List<Transaction> transactions;
-    private String title;
+    private List<Transaction> transactions=new ArrayList<>();
 
-    public ItemAdapter(Context context, List<Transaction> transactions, String title ) {
+    public ItemAdapter(Context context, List<Transaction> transactions) {
         this.context = context;
         this.transactions = transactions;
-        this.title=title;
+
     }
 
     @NonNull
@@ -38,10 +39,10 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
-      // Expense expense= (Expense) transactions.get(position);
-      // holder.img.setImageDrawable(expense.getType());
-     //  holder.amount.setText(String.valueOf(expense.getAmount()));
-       holder.title.setText(title);
+        Transaction transaction=transactions.get(position);
+        holder.img.setBackgroundColor(transaction.getColor());
+        holder.amount.setText(String.valueOf(transaction.getAmount()));
+        holder.title.setText(transaction.getType());
     }
 
     @Override

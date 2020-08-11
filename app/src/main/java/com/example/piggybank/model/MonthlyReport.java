@@ -14,7 +14,6 @@ public class MonthlyReport {
     private double TotalIncome;
     private String idAccount;
 
-    @NonNull
     public String getMonth() {
         return month;
     }
