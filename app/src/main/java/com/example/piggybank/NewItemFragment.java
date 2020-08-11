@@ -20,6 +20,9 @@ import com.example.piggybank.ui.Progress;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class NewItemFragment extends BottomSheetDialogFragment {
     private RadioButton incomeRadio, expenseRadio;
     private boolean isCost = true;
@@ -31,8 +34,10 @@ public class NewItemFragment extends BottomSheetDialogFragment {
     private double amountDouble;
     private Progress progress;
     private boolean resultCost, resultIncome;
-    private int resultDate;
-
+    private int resultColor;
+    private int resultIcon;
+   // List <String> months;{"far","ord","kho","tir","mor","shah","meh","aba","aza","dey","bah","esf"};
+    List<String>types;
     public NewItemFragment(boolean isCost) {
         this.isCost = isCost;
     }
@@ -40,6 +45,7 @@ public class NewItemFragment extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+         types= Arrays.asList(new String[]{"hospital", "beauty", "bill", "exchange", "check", "clothes", "foods", "gas", "present", "income", "transport"});
         view = inflater.inflate(R.layout.new_item_fragment, container, false);
         findView();
         setRadio();
@@ -53,7 +59,7 @@ public class NewItemFragment extends BottomSheetDialogFragment {
         save.setOnClickListener(view -> {
             if (checkCorrectly()) {
                 if (expenseRadio.isChecked()) {
-                    SaveItems.saveCost(amountDouble, resultDate, "shopping", "u1", "3,esf,1399", progress, result -> {
+                    SaveItems.saveCost(amountDouble, resultColor, types.get(resultIcon), "u1", "3,esf,1399", progress, result -> {
                         resultCost = result;
                         if (result) {
                             Snackbar snackBar = Snackbar.make(getView(), "هزینه اضافه شد", Snackbar.LENGTH_LONG);
@@ -63,7 +69,7 @@ public class NewItemFragment extends BottomSheetDialogFragment {
                     });
 
                 } else
-                    SaveItems.saveIncome(amountDouble, resultDate, "shopping", "u1", "3,esf,1399", progress, new SaveItems.onSaveItem() {
+                    SaveItems.saveIncome(amountDouble, resultColor, types.get(resultIcon), "u1", "3,esf,1399", progress, new SaveItems.onSaveItem() {
                         @Override
                         public void onItemClick(boolean result) {
                             resultIncome = result;
@@ -120,14 +126,14 @@ public class NewItemFragment extends BottomSheetDialogFragment {
         if (requestCode == 1) {
             if (resultCode == Activity.RESULT_OK) {
                 Bundle bundle = data.getExtras();
-                resultDate = bundle.getInt("selectedColor", 0);
-                colorPicker.setBackgroundColor(resultDate);
+                resultColor = bundle.getInt("selectedColor", 0);
+                colorPicker.setBackgroundColor(resultColor);
             }
         } else if (requestCode == 2) {
             if (resultCode == Activity.RESULT_OK) {
                 Bundle bundle = data.getExtras();
-                int resultDate = bundle.getInt("selectedDate", 0);
-                iconPicker.setImageResource(resultDate);
+                resultIcon = bundle.getInt("selectedDate", 0);
+                iconPicker.setImageResource(resultIcon);
             }
         }
     }
@@ -150,5 +156,6 @@ public class NewItemFragment extends BottomSheetDialogFragment {
         amount = view.findViewById(R.id.amount_item);
         progress = view.findViewById(R.id.progress);
     }
+
 }
 

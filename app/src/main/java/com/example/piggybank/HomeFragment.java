@@ -29,7 +29,6 @@ public class HomeFragment extends Fragment {
     Disposable disposable1;
     RecyclerView eRecyclerView, iRecyclerView;
     ItemAdapter itemAdapter;
-    List<Transaction> transaction;
 
     @Nullable
     @Override
@@ -42,16 +41,16 @@ public class HomeFragment extends Fragment {
     }
 
     private void setRecyclerView() {
-        LoadItems.getItem(getActivity(), true, (result, transactions) -> {
-            transaction = transactions;
+        LoadItems.getCosts(getActivity(),  (result, transactions) -> {
+            List<Transaction> transaction = transactions;
             if(result) {
                 itemAdapter = new ItemAdapter(getActivity(), transaction);
                 eRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
                 eRecyclerView.setAdapter(itemAdapter);
             }
         });
-        LoadItems.getItem(getActivity(), false, (result, transactions) -> {
-            transaction = transactions;
+        LoadItems.getIncomes(getActivity(),  (result, transactions) -> {
+            List<Transaction> transaction = transactions;
             if(result) {
                 itemAdapter = new ItemAdapter(getActivity(), transaction);
                 iRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
@@ -64,10 +63,10 @@ public class HomeFragment extends Fragment {
 
         LoadReport.getReport("esf", getActivity(), (result, months, balances, expenses, incomes) -> {
             if (result) {
-                month.setText(months + "ماه :");
-                balance.setText(balances + "مانده :");
-                expense.setText(expenses + "هزینه کل :");
-                income.setText(incomes + "درامد :");
+                month.setText( "ماه :"+months );
+                balance.setText( "مانده :"+balances );
+                expense.setText( "هزینه کل :"+expenses );
+                income.setText("درامد :"+incomes);
             }
         });
     }

@@ -13,7 +13,7 @@ public interface BaseApiService {
 
     @FormUrlEncoded
     @POST("wallet/addCost.php")
-    Call<JsonObject> saveCost(@Field("amount") double amount,
+    Single<JsonObject> saveCost(@Field("amount") double amount,
                               @Field("color") int color,
                               @Field("type") String type,
                               @Field("idAccount") String idAccount,
@@ -22,7 +22,7 @@ public interface BaseApiService {
     );
     @FormUrlEncoded
     @POST("wallet/addIncome.php")
-    Call<JsonObject> saveIncome(@Field("amount") double amount,
+    Single<JsonObject> saveIncome(@Field("amount") double amount,
                                 @Field("color") int color,
                                 @Field("type") String type,
                                 @Field("idAccount") String idAccount,

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.piggybank.R;
 import com.example.piggybank.model.Transaction;
+import com.example.piggybank.model.Types;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,8 +42,9 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
         Transaction transaction=transactions.get(position);
         holder.img.setBackgroundColor(transaction.getColor());
+        holder.img.setImageResource(Types.getRes(transaction.getType()));
         holder.amount.setText(String.valueOf(transaction.getAmount()));
-        holder.title.setText(transaction.getType());
+        holder.title.setText(transaction.getItemType());
     }
 
     @Override

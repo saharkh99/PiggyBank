@@ -1,91 +1,94 @@
 package com.example.piggybank.Network;
+
 import android.util.Log;
 import android.view.View;
-
-import com.example.piggybank.adapter.IconPickerAdapter;
 import com.example.piggybank.ui.Progress;
 import com.google.gson.JsonObject;
 import org.json.JSONObject;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import io.reactivex.SingleObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
 public class SaveItems {
-    static boolean result=false;
+    static boolean result = false;
     private onSaveItem mlistener;
-    public interface onSaveItem{
+
+    public interface onSaveItem {
         void onItemClick(boolean result);
     }
-    public  void saveOnItemListener(SaveItems.onSaveItem listener){
-        mlistener=listener;
+
+    public void saveOnItemListener(SaveItems.onSaveItem listener) {
+        mlistener = listener;
     }
 
-    public static void saveCost(double amount, int color, String type, String idAccount,String dates, final Progress progress,final onSaveItem listener){
-    BaseApiService mApiService;
-    progress.setVisibility(View.VISIBLE);
-    mApiService = UtilsApi.getAPIService();
-    mApiService.saveCost(amount,color,type, idAccount,dates).enqueue(new Callback<JsonObject>() {
-        @Override
-        public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-            progress.setVisibility(View.GONE);
-            if (response.isSuccessful()) {
-                Log.d("suceess", "success");
-                try {
-                    if (response.code() == 400) {
-                        Log.d("Error code 400", response.errorBody().string());
-                    }
-                    JSONObject object = new JSONObject(response.body().toString());
-                    String res = object.getString("add");
-                    if(res.equals("true")){
-                        result=true;
-                    }
-                }
-                catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        @Override
-        public void onFailure(Call<JsonObject> call, Throwable t) {
-            Log.e("debug", "onFailure: ERROR > " + t.toString());
-            t.printStackTrace();
-        }
-    });
-    listener.onItemClick(result);
-}
-    public static void saveIncome(double amount, int color, String type, String idAccount,String dates, final Progress progress,final onSaveItem mlistener){
+    public static void saveCost(double amount, int color, String type, String idAccount, String dates, final Progress progress, final onSaveItem mlistener) {
         BaseApiService mApiService;
         progress.setVisibility(View.VISIBLE);
         mApiService = UtilsApi.getAPIService();
-        mApiService.saveIncome(amount,color,type, idAccount,dates).enqueue(new Callback<JsonObject>() {
-            @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                progress.setVisibility(View.GONE);
-                if (response.isSuccessful()) {
-                    Log.d("suceess", "success");
-                    try {
-                        if (response.code() == 400) {
-                            Log.d("Error code 400", response.errorBody().string());
-                        }
-                        JSONObject object = new JSONObject(response.body().toString());
-                        String res = object.getString("add");
-                        Log.d("jsonObj", res.toString());
-                        if(res.equals("true")){
-                            result=true;
-                        }
+        mApiService.saveCost(amount, color, type, idAccount, dates).subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<JsonObject>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
                     }
-                    catch (Exception e){
+
+                    @Override
+                    public void onSuccess(JsonObject jsonObject) {
+                        progress.setVisibility(View.GONE);
+                        try {
+                            JSONObject object = new JSONObject(jsonObject.toString());
+                            String res = object.getString("add");
+                            Log.d("jsonObj", res.toString());
+                            if (res.equals("true")) {
+                                result = true;
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        mlistener.onItemClick(result);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
                         e.printStackTrace();
                     }
-                }
-                mlistener.onItemClick(result);
-            }
-            @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
-                Log.e("debug", "onFailure: ERROR > " + t.toString());
-                t.printStackTrace();
-            }
-        });
+                });
+    }
 
+    public static void saveIncome(double amount, int color, String type, String idAccount, String dates, final Progress progress, final onSaveItem mlistener) {
+        BaseApiService mApiService;
+        progress.setVisibility(View.VISIBLE);
+        mApiService = UtilsApi.getAPIService();
+        mApiService.saveIncome(amount, color, type, idAccount, dates).subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<JsonObject>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                    }
+
+                    @Override
+                    public void onSuccess(JsonObject jsonObject) {
+                        progress.setVisibility(View.GONE);
+                        try {
+                            JSONObject object = new JSONObject(jsonObject.toString());
+                            String res = object.getString("add");
+                            Log.d("jsonObj", res.toString());
+                            if (res.equals("true")) {
+                                result = true;
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                        mlistener.onItemClick(result);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                    }
+                });
     }
 }

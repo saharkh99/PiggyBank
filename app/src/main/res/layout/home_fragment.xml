@@ -17,6 +17,9 @@
     android:layout_width="wrap_content"
     android:layout_height="0dp"
     android:layout_weight=".05"
+    android:layoutDirection="ltr"
+    android:background="#99CAEFCC"
+    android:gravity="center"
     android:textColor="@color/brown_box"
     android:textSize="@dimen/title"
     android:padding="@dimen/large_padding"
@@ -31,6 +34,7 @@
         android:layout_weight=".05"
         android:textColor="@color/brown_box"
         android:textSize="@dimen/text_size"
+        android:layoutDirection="ltr"
         android:id="@+id/month"
         android:padding="@dimen/large_padding"
         android:text="@string/string_month"
@@ -44,6 +48,7 @@
         android:textColor="@color/brown_box"
         android:textSize="@dimen/text_size"
         android:id="@+id/expense"
+        android:layoutDirection="ltr"
         android:padding="@dimen/large_padding"
         android:text="@string/string_expense"
         android:layout_gravity="right"
@@ -57,6 +62,7 @@
         android:layout_weight=".05"
         android:id="@+id/income"
         android:padding="@dimen/large_padding"
+        android:layoutDirection="ltr"
         android:text="@string/string_income"
         android:layout_gravity="right"
         android:layout_margin="@dimen/normal_margin"
@@ -71,6 +77,12 @@
         android:textStyle="bold"
         android:padding="@dimen/large_padding"
         android:text="@string/string_recent_income"/>
+         <ImageView
+             android:layout_width="match_parent"
+             android:layout_height="2dp"
+             android:layout_margin="2dp"
+             android:src="@drawable/dash_line"
+             android:layerType="software"/>
    <androidx.recyclerview.widget.RecyclerView
        android:layout_width="match_parent"
        android:layout_height="0dp"
@@ -89,6 +101,12 @@
         android:layout_weight=".05"
         android:padding="@dimen/large_padding"
         android:text="@string/string_recent_expense"/>
+         <ImageView
+             android:layout_width="match_parent"
+             android:layout_height="2dp"
+             android:layout_margin="2dp"
+             android:src="@drawable/dash_line"
+             android:layerType="software"/>
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -107,6 +125,12 @@
         android:textStyle="bold"
         android:padding="@dimen/large_padding"
         android:text="@string/string_recent_reminder"/>
+         <ImageView
+             android:layout_width="match_parent"
+             android:layout_height="2dp"
+             android:layout_margin="2dp"
+             android:src="@drawable/dash_line"
+             android:layerType="software"/>
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="0dp"
