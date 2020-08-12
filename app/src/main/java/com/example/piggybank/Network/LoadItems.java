@@ -103,7 +103,11 @@ public class LoadItems {
             transaction.setColor(js.getInt("color"));
             transaction.setIdAccount(js.getString("idAccount"));
             transaction.setType(js.getString("type"));
-            transaction.setItemType(String.valueOf(IsCost));
+            if(IsCost)
+                transaction.setItemType("هزینه ");
+            else
+                transaction.setItemType("درامد ");
+
             transaction.setDates("dates");
             itemDAO.insert(transaction);
             transactions.add(transaction);

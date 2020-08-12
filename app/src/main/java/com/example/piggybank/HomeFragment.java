@@ -25,7 +25,7 @@ import io.reactivex.disposables.Disposable;
 public class HomeFragment extends Fragment {
     View view;
     TextView balance, income, expense, month;
-    RecyclerView lastExpenseRecycle, lastIncomeRecycle, lastReminderRecycle;
+    RecyclerView lastReminderRecycle;
     Disposable disposable1;
     RecyclerView eRecyclerView, iRecyclerView;
     ItemAdapter itemAdapter;
@@ -40,13 +40,21 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-    private void setRecyclerView() {
+    @Override
+    public void onResume() {
+        super.onResume();
+        setRecyclerView();
+    }
+
+
+    private  void setRecyclerView() {
         LoadItems.getCosts(getActivity(),  (result, transactions) -> {
             List<Transaction> transaction = transactions;
             if(result) {
                 itemAdapter = new ItemAdapter(getActivity(), transaction);
                 eRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
                 eRecyclerView.setAdapter(itemAdapter);
+                itemAdapter.notifyDataSetChanged();
             }
         });
         LoadItems.getIncomes(getActivity(),  (result, transactions) -> {
@@ -55,6 +63,8 @@ public class HomeFragment extends Fragment {
                 itemAdapter = new ItemAdapter(getActivity(), transaction);
                 iRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
                 iRecyclerView.setAdapter(itemAdapter);
+                itemAdapter.notifyDataSetChanged();
+
             }
         });
     }
@@ -72,8 +82,6 @@ public class HomeFragment extends Fragment {
     }
 
     private void findView() {
-        lastExpenseRecycle = view.findViewById(R.id.last_expenses);
-        lastIncomeRecycle = view.findViewById(R.id.last_incomes);
         lastReminderRecycle = view.findViewById(R.id.last_reminders);
         balance = view.findViewById(R.id.balance);
         income = view.findViewById(R.id.income);

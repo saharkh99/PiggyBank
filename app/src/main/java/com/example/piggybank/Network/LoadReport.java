@@ -53,31 +53,33 @@ public class LoadReport {
                             String res2 = jsObject.getString("sumIncome");
                             JSONArray jsonArray = new JSONArray(res);
                             JSONArray jsonArray2 = new JSONArray(res2);
-                            AppDataBase db;
-                            db = AppDataBase.getDatabase(context);
-                            LastItemsDAO itemsDAO = db.getItemDAO();
-                           itemsDAO.nukeMTableReport();
-                            for (int i = 0; i < jsonArray.length(); i++) {
-                                JSONObject js = jsonArray.getJSONObject(i);
-                                totalExpense = js.getDouble("SUM(amount)");
-                                monthlyReport.setTotalExpense(totalExpense);
-                                Log.d("omad", monthlyReport.getTotalExpense()+"");
-                            }
-                            for (int i = 0; i < jsonArray2.length(); i++) {
-                                JSONObject js = jsonArray2.getJSONObject(i);
-                                totalIncome = js.getDouble("SUM(amount)");
-                                monthlyReport.setTotalIncome(totalIncome);
-                                Log.d("omad", monthlyReport.getTotalExpense()+"");
+                            if(jsonArray!=null && jsonArray2!=null) {
+                                AppDataBase db;
+                                db = AppDataBase.getDatabase(context);
+                                LastItemsDAO itemsDAO = db.getItemDAO();
+                                itemsDAO.nukeMTableReport();
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject js = jsonArray.getJSONObject(i);
+                                    totalExpense = js.getDouble("SUM(amount)");
+                                    monthlyReport.setTotalExpense(totalExpense);
+                                    Log.d("omad", monthlyReport.getTotalExpense() + "");
+                                }
+                                for (int i = 0; i < jsonArray2.length(); i++) {
+                                    JSONObject js = jsonArray2.getJSONObject(i);
+                                    totalIncome = js.getDouble("SUM(amount)");
+                                    monthlyReport.setTotalIncome(totalIncome);
+                                    Log.d("omad", monthlyReport.getTotalExpense() + "");
 
-                            }
-                            monthlyReport.setBalance(totalIncome - totalExpense);
-                            monthlyReport.setIdAccount("u1");
-                            monthlyReport.setMonth("esf");
+                                }
+                                monthlyReport.setBalance(totalIncome - totalExpense);
+                                monthlyReport.setIdAccount("u1");
+                                monthlyReport.setMonth("esf");
 
-                            itemsDAO.insertReport(monthlyReport);
-                            bool = true;
-                            listener.onItemClick(bool,month,String.valueOf(totalIncome - totalExpense),String.valueOf(totalIncome)
-                            ,String.valueOf(totalExpense));
+                                itemsDAO.insertReport(monthlyReport);
+                                bool = true;
+                                listener.onItemClick(bool, month, String.valueOf(totalIncome - totalExpense), String.valueOf(totalIncome)
+                                        , String.valueOf(totalExpense));
+                            }
                         } catch (Exception e) {
                             bool = false;
 

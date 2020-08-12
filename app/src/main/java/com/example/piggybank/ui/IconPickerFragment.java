@@ -3,6 +3,7 @@ package com.example.piggybank.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +42,8 @@ public class IconPickerFragment extends DialogFragment {
             public void onItemClick(int position) {
                     index = position;
                     Intent intent = new Intent();
-                    intent.putExtra("selectedDate", icons[index]);
+                    intent.putExtra("selectedDate", index);
+                    Log.d("index", index+"");
                     getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
                     getFragmentManager().popBackStackImmediate();
             }

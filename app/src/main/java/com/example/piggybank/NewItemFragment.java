@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 
 import com.example.piggybank.Network.SaveItems;
+import com.example.piggybank.adapter.ItemAdapter;
+import com.example.piggybank.model.Types;
 import com.example.piggybank.ui.ColorPickerFragment;
 import com.example.piggybank.ui.IconPickerFragment;
 import com.example.piggybank.ui.Progress;
@@ -34,8 +37,9 @@ public class NewItemFragment extends BottomSheetDialogFragment {
     private double amountDouble;
     private Progress progress;
     private boolean resultCost, resultIncome;
-    private int resultColor;
-    private int resultIcon;
+    private int resultColor,resultIcon;
+    IconPickerFragment iconPickerFragment;
+    ColorPickerFragment colorPickerFragment;
    // List <String> months;{"far","ord","kho","tir","mor","shah","meh","aba","aza","dey","bah","esf"};
     List<String>types;
     public NewItemFragment(boolean isCost) {
@@ -67,21 +71,18 @@ public class NewItemFragment extends BottomSheetDialogFragment {
                             snackBar.show();
                         }
                     });
-
                 } else
-                    SaveItems.saveIncome(amountDouble, resultColor, types.get(resultIcon), "u1", "3,esf,1399", progress, new SaveItems.onSaveItem() {
-                        @Override
-                        public void onItemClick(boolean result) {
-                            resultIncome = result;
-                            if (resultIncome) {
-                                Snackbar snackBar = Snackbar.make(getView(), "درامد اضافه شد", Snackbar.LENGTH_LONG);
-                                snackBar.setActionTextColor(Color.GREEN);
-                                snackBar.show();
-                            }
+                    SaveItems.saveIncome(amountDouble, resultColor, types.get(resultIcon), "u1", "3,esf,1399", progress, result -> {
+                        resultIncome = result;
+                        if (resultIncome) {
+                            Snackbar snackBar = Snackbar.make(getView(), "درامد اضافه شد", Snackbar.LENGTH_LONG);
+                            snackBar.setActionTextColor(Color.GREEN);
+                            snackBar.show();
                         }
                     });
             }
         });
+
     }
 
     private boolean checkCorrectly() {
@@ -97,26 +98,20 @@ public class NewItemFragment extends BottomSheetDialogFragment {
     }
 
     private void chooseColor() {
-        colorPicker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ColorPickerFragment colorPickerFragment = new ColorPickerFragment();
-                colorPickerFragment.setTargetFragment(NewItemFragment.this, 1);
-                colorPickerFragment.show(getFragmentManager(), "color_show");
+        colorPicker.setOnClickListener(view -> {
+            colorPickerFragment = new ColorPickerFragment();
+            colorPickerFragment.setTargetFragment(NewItemFragment.this, 1);
+            colorPickerFragment.show(getFragmentManager(), "color_show");
 
-            }
         });
     }
 
     private void chooseIcon() {
-        iconPicker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                IconPickerFragment iconPickerFragment = new IconPickerFragment();
-                iconPickerFragment.setTargetFragment(NewItemFragment.this, 2);
-                iconPickerFragment.show(getFragmentManager(), "icon_show");
+        iconPicker.setOnClickListener(view -> {
+            iconPickerFragment = new IconPickerFragment();
+            iconPickerFragment.setTargetFragment(NewItemFragment.this, 2);
+            iconPickerFragment.show(getFragmentManager(), "icon_show");
 
-            }
         });
     }
 
@@ -128,12 +123,14 @@ public class NewItemFragment extends BottomSheetDialogFragment {
                 Bundle bundle = data.getExtras();
                 resultColor = bundle.getInt("selectedColor", 0);
                 colorPicker.setBackgroundColor(resultColor);
+                colorPickerFragment.dismiss();
             }
         } else if (requestCode == 2) {
             if (resultCode == Activity.RESULT_OK) {
                 Bundle bundle = data.getExtras();
                 resultIcon = bundle.getInt("selectedDate", 0);
-                iconPicker.setImageResource(resultIcon);
+                iconPicker.setImageResource(Types.getRes(types.get(resultIcon)));
+                iconPickerFragment.dismiss();
             }
         }
     }

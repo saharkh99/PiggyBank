@@ -149,7 +149,7 @@
                 android:layout_height="45dp"
                 android:layout_margin="20dp"
                 android:layout_gravity="bottom|end"
-                android:src="@drawable/money"
+                android:src="@drawable/check"
                 android:backgroundTint="@color/colorAccent"
                 android:padding="@dimen/normal_margin"
                 app:elevation="6dp"

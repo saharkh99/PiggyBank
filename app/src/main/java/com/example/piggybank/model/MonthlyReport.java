@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "MonthlyReport")
 public class MonthlyReport {
+
     @NonNull
     @PrimaryKey
     private String month;

@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.cardview.widget.CardView;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.piggybank.R;
@@ -27,12 +29,15 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     public ItemAdapter(Context context, List<Transaction> transactions) {
         this.context = context;
         this.transactions = transactions;
+        notifyDataSetChanged();
 
     }
 
     @NonNull
     @Override
     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+//        View view=DataBindingUtil.inflate(LayoutInflater.from(context),
+//                R.layout.last_item, parent, false);
         View view = LayoutInflater.from(context).inflate(R.layout.last_item, parent, false);
         return new ItemViewHolder(view);
     }
@@ -41,15 +46,20 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
         Transaction transaction=transactions.get(position);
-        holder.img.setBackgroundColor(transaction.getColor());
+        holder.cardView.setBackgroundColor(transaction.getColor());
         holder.img.setImageResource(Types.getRes(transaction.getType()));
         holder.amount.setText(String.valueOf(transaction.getAmount()));
         holder.title.setText(transaction.getItemType());
     }
 
+
     @Override
     public int getItemCount() {
-        return transactions.size();
+        if (transactions != null) {
+            return transactions.size();
+        } else {
+            return 0;
+        }
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {
@@ -57,12 +67,14 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         ImageView img;
         TextView title;
         TextView amount;
+        CardView cardView;
 
         public ItemViewHolder(@NonNull View itemView) {
             super(itemView);
             img=itemView.findViewById(R.id.last_icon);
             title=itemView.findViewById(R.id.last_type);
             amount=itemView.findViewById(R.id.last_amount);
+            cardView=itemView.findViewById(R.id.card_item);
         }
     }
 }
