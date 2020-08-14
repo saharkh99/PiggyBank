@@ -28,7 +28,7 @@ public class HomeFragment extends Fragment {
     RecyclerView lastReminderRecycle;
     Disposable disposable1;
     RecyclerView eRecyclerView, iRecyclerView;
-    ItemAdapter itemAdapter;
+    static ItemAdapter itemAdapter;
 
     @Nullable
     @Override
@@ -54,7 +54,6 @@ public class HomeFragment extends Fragment {
                 itemAdapter = new ItemAdapter(getActivity(), transaction);
                 eRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
                 eRecyclerView.setAdapter(itemAdapter);
-                itemAdapter.notifyDataSetChanged();
             }
         });
         LoadItems.getIncomes(getActivity(),  (result, transactions) -> {
@@ -63,7 +62,6 @@ public class HomeFragment extends Fragment {
                 itemAdapter = new ItemAdapter(getActivity(), transaction);
                 iRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
                 iRecyclerView.setAdapter(itemAdapter);
-                itemAdapter.notifyDataSetChanged();
 
             }
         });
@@ -71,7 +69,7 @@ public class HomeFragment extends Fragment {
 
     private void initReportHome() {
 
-        LoadReport.getReport("esf", getActivity(), (result, months, balances, expenses, incomes) -> {
+        LoadReport.getReport("esf", getActivity(), (result, months, balances, incomes, expenses) -> {
             if (result) {
                 month.setText( "ماه :"+months );
                 balance.setText( "مانده :"+balances );

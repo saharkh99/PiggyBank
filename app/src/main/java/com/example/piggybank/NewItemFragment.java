@@ -16,6 +16,7 @@ import android.widget.RadioButton;
 
 import com.example.piggybank.Network.SaveItems;
 import com.example.piggybank.adapter.ItemAdapter;
+import com.example.piggybank.model.Transaction;
 import com.example.piggybank.model.Types;
 import com.example.piggybank.ui.ColorPickerFragment;
 import com.example.piggybank.ui.IconPickerFragment;
@@ -40,7 +41,7 @@ public class NewItemFragment extends BottomSheetDialogFragment {
     private int resultColor,resultIcon;
     IconPickerFragment iconPickerFragment;
     ColorPickerFragment colorPickerFragment;
-   // List <String> months;{"far","ord","kho","tir","mor","shah","meh","aba","aza","dey","bah","esf"};
+    // List <String> months;{"far","ord","kho","tir","mor","shah","meh","aba","aza","dey","bah","esf"};
     List<String>types;
     public NewItemFragment(boolean isCost) {
         this.isCost = isCost;
@@ -49,7 +50,7 @@ public class NewItemFragment extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-         types= Arrays.asList(new String[]{"hospital", "beauty", "bill", "exchange", "check", "clothes", "foods", "gas", "present", "income", "transport"});
+        types= Arrays.asList(new String[]{"hospital", "beauty", "bill", "exchange", "check", "clothes", "foods", "gas", "present", "income", "internet","transport"});
         view = inflater.inflate(R.layout.new_item_fragment, container, false);
         findView();
         setRadio();
@@ -66,18 +67,28 @@ public class NewItemFragment extends BottomSheetDialogFragment {
                     SaveItems.saveCost(amountDouble, resultColor, types.get(resultIcon), "u1", "3,esf,1399", progress, result -> {
                         resultCost = result;
                         if (result) {
-                            Snackbar snackBar = Snackbar.make(getView(), "هزینه اضافه شد", Snackbar.LENGTH_LONG);
-                            snackBar.setActionTextColor(Color.GREEN);
-                            snackBar.show();
+                            Transaction transaction=new Transaction();
+                            transaction.setAmount(amountDouble);
+                            transaction.setColor(resultColor);
+                            transaction.setItemType("هزینه");
+                            transaction.setType(types.get(resultIcon));
+                            HomeFragment.itemAdapter.addItem( transaction);
+                            HomeFragment.itemAdapter.notifyItemChanged(HomeFragment.itemAdapter.getItemCount());
                         }
                     });
                 } else
                     SaveItems.saveIncome(amountDouble, resultColor, types.get(resultIcon), "u1", "3,esf,1399", progress, result -> {
                         resultIncome = result;
                         if (resultIncome) {
-                            Snackbar snackBar = Snackbar.make(getView(), "درامد اضافه شد", Snackbar.LENGTH_LONG);
-                            snackBar.setActionTextColor(Color.GREEN);
-                            snackBar.show();
+                            Transaction transaction=new Transaction();
+                            transaction.setAmount(amountDouble);
+                            transaction.setColor(resultColor);
+                            transaction.setItemType("هزینه");
+                            transaction.setType(types.get(resultIcon));
+                            HomeFragment.itemAdapter.addItem( transaction);
+                            HomeFragment.itemAdapter.notifyItemChanged(HomeFragment.itemAdapter.getItemCount());
+
+
                         }
                     });
             }
@@ -155,4 +166,3 @@ public class NewItemFragment extends BottomSheetDialogFragment {
     }
 
 }
-

@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:bind="http://schemas.android.com/apk/res-auto"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
-    <data>
-        <variable
-            name="item"
-            type="com.example.piggybank.model.Transaction"/>
-    </data>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="100dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:elevation="@dimen/cardview_default_elevation"
@@ -53,4 +45,3 @@
     </LinearLayout>
 
 </com.google.android.material.card.MaterialCardView>
-</layout>

@@ -3,6 +3,7 @@ package com.example.piggybank.adapter;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,12 +25,19 @@ import java.util.List;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder>{
     private Context context;
-    private List<Transaction> transactions=new ArrayList<>();
+    private  List<Transaction> transactions=new ArrayList<>();
 
     public ItemAdapter(Context context, List<Transaction> transactions) {
         this.context = context;
         this.transactions = transactions;
+
+    }
+    public void addItem( Transaction transaction) {
+        transactions.add(0, transaction);
+        transactions.add(transaction);
         notifyDataSetChanged();
+        Log.d("xx", transactions.size()+"");
+        this.notifyItemChanged(transactions.size());
 
     }
 
@@ -41,6 +49,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         View view = LayoutInflater.from(context).inflate(R.layout.last_item, parent, false);
         return new ItemViewHolder(view);
     }
+
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
