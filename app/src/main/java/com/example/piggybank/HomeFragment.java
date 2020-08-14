@@ -1,12 +1,8 @@
 package com.example.piggybank;
-
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -28,7 +24,7 @@ public class HomeFragment extends Fragment {
     RecyclerView lastReminderRecycle;
     Disposable disposable1;
     RecyclerView eRecyclerView, iRecyclerView;
-    static ItemAdapter itemAdapter;
+    static ItemAdapter itemAdapter,itemAdapter1;
 
     @Nullable
     @Override
@@ -59,9 +55,9 @@ public class HomeFragment extends Fragment {
         LoadItems.getIncomes(getActivity(),  (result, transactions) -> {
             List<Transaction> transaction = transactions;
             if(result) {
-                itemAdapter = new ItemAdapter(getActivity(), transaction);
+                itemAdapter1 = new ItemAdapter(getActivity(), transaction);
                 iRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
-                iRecyclerView.setAdapter(itemAdapter);
+                iRecyclerView.setAdapter(itemAdapter1);
 
             }
         });

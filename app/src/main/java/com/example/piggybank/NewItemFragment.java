@@ -83,10 +83,10 @@ public class NewItemFragment extends BottomSheetDialogFragment {
                             Transaction transaction=new Transaction();
                             transaction.setAmount(amountDouble);
                             transaction.setColor(resultColor);
-                            transaction.setItemType("هزینه");
+                            transaction.setItemType("درامد");
                             transaction.setType(types.get(resultIcon));
-                            HomeFragment.itemAdapter.addItem( transaction);
-                            HomeFragment.itemAdapter.notifyItemChanged(HomeFragment.itemAdapter.getItemCount());
+                            HomeFragment.itemAdapter1.addItem( transaction);
+                            HomeFragment.itemAdapter1.notifyItemChanged(HomeFragment.itemAdapter1.getItemCount());
 
 
                         }
