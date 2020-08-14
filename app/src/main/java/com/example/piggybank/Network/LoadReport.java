@@ -6,6 +6,7 @@ import android.util.Log;
 import com.example.piggybank.dao.AppDataBase;
 import com.example.piggybank.dao.LastItemsDAO;
 import com.example.piggybank.model.MonthlyReport;
+import com.example.piggybank.ui.Progress;
 import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
@@ -28,7 +29,7 @@ public class LoadReport {
         mlistener=listener;
     }
 
-    public static void getReport(String month, Context context,final onSaveItem listener
+    public static void getReport(String month, Context context, final onSaveItem listener
     ) {
         BaseApiService mApiService;
         mApiService = UtilsApi.getAPIService();
@@ -45,7 +46,6 @@ public class LoadReport {
                     public void onSuccess(JsonObject jsonObject) {
                         MonthlyReport monthlyReport = new MonthlyReport();
                         double totalIncome = 0, totalExpense = 0;
-
                         try {
                             Log.d("omad", "omad");
                             JSONObject jsObject = new JSONObject(jsonObject.toString());

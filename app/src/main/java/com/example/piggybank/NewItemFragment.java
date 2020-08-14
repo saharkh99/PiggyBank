@@ -2,9 +2,7 @@ package com.example.piggybank;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,14 +13,13 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 
 import com.example.piggybank.Network.SaveItems;
-import com.example.piggybank.adapter.ItemAdapter;
 import com.example.piggybank.model.Transaction;
 import com.example.piggybank.model.Types;
 import com.example.piggybank.ui.ColorPickerFragment;
 import com.example.piggybank.ui.IconPickerFragment;
 import com.example.piggybank.ui.Progress;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.google.android.material.snackbar.Snackbar;
+
 
 import java.util.Arrays;
 import java.util.List;
