@@ -6,6 +6,7 @@ import android.util.Log;
 import com.example.piggybank.dao.AppDataBase;
 import com.example.piggybank.dao.LastItemsDAO;
 import com.example.piggybank.model.MonthlyReport;
+import com.example.piggybank.model.Types;
 import com.example.piggybank.ui.Progress;
 import com.google.gson.JsonObject;
 
@@ -73,7 +74,7 @@ public class LoadReport {
                                 }
                                 monthlyReport.setBalance(totalIncome - totalExpense);
                                 monthlyReport.setIdAccount("u1");
-                                monthlyReport.setMonth("esf");
+                                monthlyReport.setMonth(Types.getDate(false));
 
                                 itemsDAO.insertReport(monthlyReport);
                                 bool = true;

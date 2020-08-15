@@ -15,6 +15,8 @@ import com.example.piggybank.Network.LoadItems;
 import com.example.piggybank.Network.LoadReport;
 import com.example.piggybank.adapter.ItemAdapter;
 import com.example.piggybank.model.Transaction;
+import com.example.piggybank.model.Types;
+
 import java.util.List;
 import io.reactivex.disposables.Disposable;
 
@@ -65,7 +67,7 @@ public class HomeFragment extends Fragment {
 
     private void initReportHome() {
 
-        LoadReport.getReport("esf", getActivity(), (result, months, balances, incomes, expenses) -> {
+        LoadReport.getReport(Types.getDate(false), getActivity(), (result, months, balances, incomes, expenses) -> {
             if (result) {
                 month.setText( "ماه :"+months );
                 balance.setText( "مانده :"+balances );

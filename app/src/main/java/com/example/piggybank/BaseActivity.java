@@ -2,22 +2,18 @@ package com.example.piggybank;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.app.FragmentManager;
-import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 
 import com.duolingo.open.rtlviewpager.RtlViewPager;
 import com.example.piggybank.FontPart.BaseContext;
 import com.example.piggybank.adapter.ViewPagerAdapter;
-import com.example.piggybank.ui.Progress;
+import com.example.piggybank.ui.ColorPickerFragment;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
@@ -31,6 +27,7 @@ public class BaseActivity extends BaseContext {
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private RtlViewPager viewPager;
     private TabLayout tabLayout;
+    private ImageView calendarImg;
     private int[] tabIcons = {
             R.drawable.home,
             R.drawable.report
@@ -45,45 +42,43 @@ public class BaseActivity extends BaseContext {
         addItem();
         addCost();
         addIncome();
+        setCalender();
         setupViewPager(viewPager);
-        tabLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                tabLayout.setupWithViewPager(viewPager);
-                setupTabIcons();
-            }
+        tabLayout.post(() -> {
+            tabLayout.setupWithViewPager(viewPager);
+            setupTabIcons();
         });
-        ProgressBar progressBar=new ProgressBar(this);
-        progressBar.setProgressDrawable(getDrawable(R.drawable.coin));
+    }
+
+    private void setCalender() {
+        calendarImg.setOnClickListener(view -> {
+            Calendar calendar = new Calendar();
+            calendar.show(getSupportFragmentManager(), calendar.getTag());
+          //  Intent intent=new Intent(BaseActivity.this,Calendar.class);
+          //  startActivity(intent);
+        });
     }
 
     private void addIncome() {
-        floatIncome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final NewItemFragment bottomFragment = new NewItemFragment(false);
-                bottomFragment.show(getSupportFragmentManager(), bottomFragment.getTag());            }
+        floatIncome.setOnClickListener(view -> {
+            final NewItemFragment bottomFragment = new NewItemFragment(false);
+            bottomFragment.show(getSupportFragmentManager(), bottomFragment.getTag());
         });
     }
 
     private void addCost() {
-        floatCost.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NewItemFragment bottomFragment = new NewItemFragment(true);
-                bottomFragment.show(getSupportFragmentManager(), bottomFragment.getTag());            }
+        floatCost.setOnClickListener(view -> {
+            NewItemFragment bottomFragment = new NewItemFragment(true);
+            bottomFragment.show(getSupportFragmentManager(), bottomFragment.getTag());
         });
     }
 
     private void addItem() {
-        floatAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(!isMenuOpen){
-                    showMenu();
-                }else{
-                    closeMenu();
-                }
+        floatAdd.setOnClickListener(view -> {
+            if(!isMenuOpen){
+                showMenu();
+            }else{
+                closeMenu();
             }
         });
     }
@@ -110,6 +105,7 @@ public class BaseActivity extends BaseContext {
         floatAdd=findViewById(R.id.add_item);
         floatCost=findViewById(R.id.add_cost);
         floatIncome=findViewById(R.id.add_money);
+        calendarImg =findViewById(R.id.calender);
     }
     private void setupTabIcons() {
         tabLayout.getTabAt(0).setIcon(tabIcons[0]);

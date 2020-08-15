@@ -23,9 +23,6 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    dataBinding {
-        enabled = true
-    }
 }
 
 dependencies {
@@ -42,8 +39,8 @@ dependencies {
     implementation 'io.github.inflationx:viewpump:2.0.3'
     implementation 'com.google.android.material:material:1.2.0-alpha06'
     implementation 'com.duolingo.open:rtl-viewpager:2.0.0'
-    implementation "android.arch.persistence.room:runtime:1.1.1"
-    annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
+    implementation "android.arch.persistence.room:runtime:2.2.5"
+    annotationProcessor "android.arch.persistence.room:compiler:2.2.5"
     implementation 'com.squareup.retrofit2:retrofit:2.7.2'
     implementation 'com.android.support:multidex:1.0.1'
     implementation 'com.squareup.retrofit2:converter-gson:2.7.2'

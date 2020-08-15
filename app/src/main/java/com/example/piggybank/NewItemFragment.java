@@ -61,7 +61,7 @@ public class NewItemFragment extends BottomSheetDialogFragment {
         save.setOnClickListener(view -> {
             if (checkCorrectly()) {
                 if (expenseRadio.isChecked()) {
-                    SaveItems.saveCost(amountDouble, resultColor, types.get(resultIcon), "u1", "3,esf,1399", progress, result -> {
+                    SaveItems.saveCost(amountDouble, resultColor, types.get(resultIcon), "u1", Types.getDate(true), progress, result -> {
                         resultCost = result;
                         if (result) {
                             Transaction transaction=new Transaction();
@@ -74,7 +74,7 @@ public class NewItemFragment extends BottomSheetDialogFragment {
                         }
                     });
                 } else
-                    SaveItems.saveIncome(amountDouble, resultColor, types.get(resultIcon), "u1", "3,esf,1399", progress, result -> {
+                    SaveItems.saveIncome(amountDouble, resultColor, types.get(resultIcon), "u1", Types.getDate(true), progress, result -> {
                         resultIncome = result;
                         if (resultIncome) {
                             Transaction transaction=new Transaction();
