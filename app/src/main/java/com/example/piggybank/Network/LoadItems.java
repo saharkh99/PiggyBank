@@ -32,7 +32,7 @@ public class LoadItems {
     }
 
     public static void getCosts(Context context, onSaveItem mlistener) {
-        mApiService.getLastCosts()
+        mApiService.getLastCosts(5)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<JsonObject>() {
@@ -61,7 +61,7 @@ public class LoadItems {
     }
 
     public static void getIncomes(Context context, onSaveItem mlistener) {
-        mApiService.getLastIncomes()
+        mApiService.getLastIncomes(5)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<JsonObject>() {

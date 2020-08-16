@@ -6,12 +6,17 @@ import android.util.Log;
 import com.example.piggybank.dao.AppDataBase;
 import com.example.piggybank.dao.LastItemsDAO;
 import com.example.piggybank.model.MonthlyReport;
+import com.example.piggybank.model.Transaction;
 import com.example.piggybank.model.Types;
 import com.example.piggybank.ui.Progress;
 import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -23,11 +28,18 @@ public class LoadReport {
     private static boolean bool = false;
     private static Disposable disposable;
     private LoadReport.onSaveItem mlistener;
-    public interface onSaveItem{
-        void onItemClick(boolean result,String month,String balance,String expense,String income);
+
+    public interface onSaveItem {
+        void onItemClick(boolean result, String month, String balance, String expense, String income);
+
     }
-    public  void saveOnItemListener(LoadReport.onSaveItem listener){
-        mlistener=listener;
+    public interface getTrans {
+
+        void getReport(List<Transaction> transaction);
+    }
+
+    public void saveOnItemListener(LoadReport.onSaveItem listener) {
+        mlistener = listener;
     }
 
     public static void getReport(String month, Context context, final onSaveItem listener
@@ -40,7 +52,7 @@ public class LoadReport {
                 .subscribe(new SingleObserver<JsonObject>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-                      disposable=d;
+                        disposable = d;
                     }
 
                     @Override
@@ -54,7 +66,7 @@ public class LoadReport {
                             String res2 = jsObject.getString("sumIncome");
                             JSONArray jsonArray = new JSONArray(res);
                             JSONArray jsonArray2 = new JSONArray(res2);
-                            if(jsonArray!=null && jsonArray2!=null) {
+                            if (jsonArray != null && jsonArray2 != null) {
                                 AppDataBase db;
                                 db = AppDataBase.getDatabase(context);
                                 LastItemsDAO itemsDAO = db.getItemDAO();
@@ -90,9 +102,101 @@ public class LoadReport {
 
                     @Override
                     public void onError(Throwable e) {
-                      e.printStackTrace();
+                        e.printStackTrace();
                     }
                 });
     }
+
+    public static void getMonthlyReport(boolean IsCost, String month, Context context, final getTrans listener) {
+        if (IsCost) {
+            BaseApiService mApiService;
+            mApiService = UtilsApi.getAPIService();
+            mApiService.getCostsMonthly(month)
+                    .subscribeOn(Schedulers.newThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new SingleObserver<JsonObject>() {
+
+                        @Override
+                        public void onSubscribe(Disposable d) {
+
+                        }
+
+                        @Override
+                        public void onSuccess(JsonObject jsonObject) {
+                            try {
+                                JSONObject js = new JSONObject(jsonObject.toString());
+                                String res = js.getString("cost");
+                                List<Transaction> transactions = new ArrayList<>();
+                                JSONArray jsonArray = new JSONArray(res);
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject js1 = jsonArray.getJSONObject(i);
+                                    Transaction transaction = new Transaction();
+                                    transaction.setAmount(js1.getDouble("amount"));
+                                    transaction.setId(js1.getInt("id"));
+                                    transaction.setColor(js1.getInt("color"));
+                                    transaction.setIdAccount(js1.getString("idAccount"));
+                                    transaction.setType(js1.getString("type"));
+                                    transaction.setItemType("هزینه ");
+                                    transaction.setDates("dates");
+                                    transactions.add(transaction);
+                                }
+                                listener.getReport(transactions);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            e.printStackTrace();
+                        }
+                    });
+        } else {
+            BaseApiService mApiService;
+            mApiService = UtilsApi.getAPIService();
+            mApiService.getCostsMonthly(month)
+                    .subscribeOn(Schedulers.newThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new SingleObserver<JsonObject>() {
+
+                        @Override
+                        public void onSubscribe(Disposable d) {
+
+                        }
+
+                        @Override
+                        public void onSuccess(JsonObject jsonObject) {
+                            try {
+                                JSONObject js = new JSONObject(jsonObject.toString());
+                                String res = js.getString("cost");
+                                List<Transaction> transactions = new ArrayList<>();
+                                JSONArray jsonArray = new JSONArray(res);
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject js1 = jsonArray.getJSONObject(i);
+                                    Transaction transaction = new Transaction();
+                                    transaction.setAmount(js1.getDouble("amount"));
+                                    transaction.setId(js1.getInt("id"));
+                                    transaction.setColor(js1.getInt("color"));
+                                    transaction.setIdAccount(js1.getString("idAccount"));
+                                    transaction.setType(js1.getString("type"));
+                                    transaction.setItemType("درامد ");
+                                    transaction.setDates("dates");
+                                    transactions.add(transaction);
+                                }
+                                listener.getReport(transactions);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            e.printStackTrace();
+                        }
+                    });
+        }
+
+    }
+
 
 }

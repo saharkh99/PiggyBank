@@ -33,6 +33,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     }
     public void addItem( Transaction transaction) {
         transactions.add(0, transaction);
+        if(transactions.size()>4)
         transactions.remove(transactions.size()-1);
         notifyDataSetChanged();
         Log.d("xx", transactions.size()+"");

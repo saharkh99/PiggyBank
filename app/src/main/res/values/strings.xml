@@ -26,4 +26,7 @@
     <string name="string_picking_color">انتخاب رنگ</string>
     <string name="string_accept">تایید</string>
     <string name="string_reject">انصراف</string>
+    <string name="pie_chart">نمدار دایره ای</string>
+    <string name="string_total_incomes">مشاهده همه هزینه ها</string>
+    <string name="string_total_costs">مشاهده همه درامد ها</string>
 </resources>
