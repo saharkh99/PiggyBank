@@ -1,24 +1,30 @@
-package com.example.piggybank;
+package com.example.piggybank.view;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.duolingo.open.rtlviewpager.RtlViewPager;
 import com.example.piggybank.FontPart.BaseContext;
+import com.example.piggybank.Network.InternetConnection;
+import com.example.piggybank.R;
 import com.example.piggybank.adapter.ViewPagerAdapter;
-import com.example.piggybank.ui.ColorPickerFragment;
+import com.example.piggybank.model.Transaction;
+import com.example.piggybank.model.Type;
+import com.example.piggybank.model.Types;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
-public class BaseActivity extends BaseContext {
+public class BaseActivity extends AppCompatActivity{
     private boolean isMenuOpen=false;
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
@@ -28,6 +34,7 @@ public class BaseActivity extends BaseContext {
     private RtlViewPager viewPager;
     private TabLayout tabLayout;
     private ImageView calendarImg;
+    InternetConnection internetConnection;
     private int[] tabIcons = {
             R.drawable.home,
             R.drawable.report
@@ -44,6 +51,7 @@ public class BaseActivity extends BaseContext {
         addIncome();
         setCalender();
         setupViewPager(viewPager);
+
         tabLayout.post(() -> {
             tabLayout.setupWithViewPager(viewPager);
             setupTabIcons();
@@ -132,5 +140,16 @@ public class BaseActivity extends BaseContext {
         toolbars.setNavigationIcon(R.drawable.menu);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        internetConnection=new InternetConnection(drawerLayout);
+        registerReceiver(internetConnection, new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE"));
+    }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unregisterReceiver(internetConnection);
+    }
 }

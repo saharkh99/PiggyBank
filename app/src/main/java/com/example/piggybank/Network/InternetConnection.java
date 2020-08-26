@@ -5,21 +5,33 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.view.View;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-public class InternetConnection  {
-    public boolean isInternetAvailable() {
-        try {
-            InetAddress address = InetAddress.getByName("www.google.com");
-            return !address.equals("");
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
-        return false;
+
+public class InternetConnection extends BroadcastReceiver {
+    View v;
+    Snackbar snackbar;
+
+    public InternetConnection(View view) {
+        v = view;
     }
-    public boolean isNetworkAvailable(Context context) {
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
         ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
-        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        boolean isConnected = networkInfo != null && networkInfo.isConnectedOrConnecting();
+        if (isConnected) {
+            if (snackbar != null)
+                snackbar.dismiss();
+        } else {
+            snackbar = Snackbar.make(v, "به ایرنت وصل شوید", Snackbar.LENGTH_INDEFINITE);
+            snackbar.show();
+        }
+
     }
 }

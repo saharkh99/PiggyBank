@@ -29,4 +29,6 @@
     <string name="pie_chart">نمدار دایره ای</string>
     <string name="string_total_incomes">مشاهده همه هزینه ها</string>
     <string name="string_total_costs">مشاهده همه درامد ها</string>
+    <string name="string_most_expense">بیشترین هزینه</string>
+    <string name="string_add_reminder">اضافه کردن یاداوری</string>
 </resources>

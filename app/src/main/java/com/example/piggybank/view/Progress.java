@@ -1,4 +1,4 @@
-package com.example.piggybank.ui;
+package com.example.piggybank.view;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Canvas;

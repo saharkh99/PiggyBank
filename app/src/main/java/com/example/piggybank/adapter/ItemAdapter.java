@@ -1,35 +1,47 @@
 package com.example.piggybank.adapter;
 
 import android.content.Context;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.piggybank.R;
+import com.example.piggybank.databinding.LastItemBinding;
 import com.example.piggybank.model.Transaction;
-import com.example.piggybank.model.Types;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder>{
+public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> {
     private Context context;
-    private  List<Transaction> transactions=new ArrayList<>();
+    private  List<Transaction> transactions;
+    LastItemBinding binding;
+    private ItemAdapter.onItemClickListener mlistener;
+    boolean v;
 
-    public ItemAdapter(Context context, List<Transaction> transactions) {
+
+    public interface onItemClickListener{
+        void onItemClick(int position,boolean checked);
+    }
+    public  void setOnItemClickListener(ItemAdapter.onItemClickListener listener){
+        mlistener=listener;
+    }
+
+
+    public ItemAdapter(Context context, List<Transaction> transactions,boolean isVisible) {
         this.context = context;
         this.transactions = transactions;
-
+        v=isVisible;
     }
     public void addItem( Transaction transaction) {
         transactions.add(0, transaction);
@@ -44,10 +56,9 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     @NonNull
     @Override
     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//        View view=DataBindingUtil.inflate(LayoutInflater.from(context),
-//                R.layout.last_item, parent, false);
         View view = LayoutInflater.from(context).inflate(R.layout.last_item, parent, false);
-        return new ItemViewHolder(view);
+        binding= DataBindingUtil.bind(view);
+        return new ItemViewHolder(binding,mlistener);
     }
 
 
@@ -55,10 +66,13 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
         Transaction transaction=transactions.get(position);
+        Log.d("amount", transaction.getItemType()+"");
         holder.cardView.setBackgroundColor(transaction.getColor());
-        holder.img.setImageResource(Types.getRes(transaction.getType()));
-        holder.amount.setText(String.valueOf(transaction.getAmount()));
+        holder.img.setImageResource(transaction.getType());
+        holder.amount.setText(String.valueOf((int) transaction.getAmount()));
         holder.title.setText(transaction.getItemType());
+        if (v)
+        holder.checkBox.setVisibility(View.VISIBLE);
     }
 
 
@@ -71,19 +85,33 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         }
     }
 
+
+
     public class ItemViewHolder extends RecyclerView.ViewHolder {
 
         ImageView img;
         TextView title;
         TextView amount;
         CardView cardView;
+        CheckBox checkBox;
 
-        public ItemViewHolder(@NonNull View itemView) {
-            super(itemView);
-            img=itemView.findViewById(R.id.last_icon);
-            title=itemView.findViewById(R.id.last_type);
-            amount=itemView.findViewById(R.id.last_amount);
-            cardView=itemView.findViewById(R.id.card_item);
+        public ItemViewHolder(@NonNull LastItemBinding itemView,final ItemAdapter.onItemClickListener listener) {
+            super(itemView.getRoot());
+            cardView=binding.cardItem;
+            amount=binding.lastAmount;
+            title=binding.lastType;
+            img=binding.lastIcon;
+            checkBox=binding.checkbox;
+            itemView.getRoot().setOnClickListener(view -> {
+                if(listener!=null){
+                    int position1 = getAdapterPosition();
+                    view.setTag("item");
+                    listener.onItemClick(position1,checkBox.isChecked());
+                }
+            });
+
         }
+
     }
+
 }

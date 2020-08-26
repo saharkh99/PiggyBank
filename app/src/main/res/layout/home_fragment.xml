@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="report"
+            type="com.example.piggybank.model.MonthlyReport" />
+        <variable
+            name="clickHandler"
+            type="com.example.piggybank.view.HomeFragment.AddAndEditActivityClickHandlers" />
+    </data>
+<androidx.core.widget.NestedScrollView
+
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:fillViewport="true"
@@ -14,62 +25,57 @@
          android:orientation="vertical">
 <TextView
     android:layout_width="wrap_content"
-    android:layout_height="0dp"
-    android:layout_weight=".05"
+    android:layout_height="wrap_content"
     android:layoutDirection="ltr"
     android:background="@drawable/rectangles"
     android:gravity="center"
     android:textColor="@color/brown_box"
     android:textSize="@dimen/title"
     android:padding="@dimen/large_padding"
-    android:text="@string/string_balance"
+    android:text="@{String.valueOf(report.balance),default=mehr}"
     android:layout_gravity="center"
     android:id="@+id/balance"
     android:layout_margin="@dimen/normal_margin"
     />
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight=".05"
+        android:layout_height="wrap_content"
         android:textColor="@color/brown_box"
         android:textSize="@dimen/text_size"
         android:layoutDirection="ltr"
         android:id="@+id/month"
         android:padding="@dimen/large_padding"
-        android:text="@string/string_month"
+        tools:text="@{String.valueOf(report.month), default=mehr}"
         android:layout_gravity="right"
         android:layout_margin="@dimen/normal_margin"
         />
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight=".05"
+        android:layout_height="wrap_content"
         android:textColor="@color/brown_box"
         android:textSize="@dimen/text_size"
         android:id="@+id/expense"
         android:layoutDirection="ltr"
         android:padding="@dimen/large_padding"
-        android:text="@string/string_expense"
+        tools:text="@{String.valueOf(report.totalExpense), default=mehr}"
         android:layout_gravity="right"
         android:layout_margin="@dimen/normal_margin"
         />
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:textColor="@color/brown_box"
         android:textSize="@dimen/text_size"
-        android:layout_weight=".05"
         android:id="@+id/income"
         android:padding="@dimen/large_padding"
         android:layoutDirection="ltr"
-        android:text="@string/string_income"
+        tools:text="@{String.valueOf(report.totalIncome), default=mehr}"
         android:layout_gravity="right"
         android:layout_margin="@dimen/normal_margin"
         />
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight=".05"
+        android:layout_height="wrap_content"
         android:textColor="@color/brown_box"
         android:layout_marginTop="@dimen/large_margin"
         android:textSize="@dimen/title"
@@ -84,20 +90,18 @@
              android:layerType="software"/>
    <androidx.recyclerview.widget.RecyclerView
        android:layout_width="match_parent"
-       android:layout_height="0dp"
+       android:layout_height="wrap_content"
        android:layoutDirection="rtl"
        android:id="@+id/last_incomes"
-       android:layout_weight=".1"
        android:orientation="horizontal"
        />
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:textColor="@color/brown_box"
         android:layout_marginTop="@dimen/large_margin"
         android:textSize="@dimen/title"
         android:textStyle="bold"
-        android:layout_weight=".05"
         android:padding="@dimen/large_padding"
         android:text="@string/string_recent_expense"/>
          <ImageView
@@ -108,35 +112,42 @@
              android:layerType="software"/>
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layoutDirection="rtl"
-        android:layout_weight=".1"
         android:id="@+id/last_expenses"
         android:orientation="horizontal"
         />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight=".05"
-        android:textColor="@color/brown_box"
-        android:layout_marginTop="@dimen/large_margin"
-        android:textSize="@dimen/title"
-        android:textStyle="bold"
-        android:padding="@dimen/large_padding"
-        android:text="@string/string_recent_reminder"/>
-         <ImageView
-             android:layout_width="match_parent"
-             android:layout_height="2dp"
-             android:layout_margin="2dp"
-             android:src="@drawable/dash_line"
-             android:layerType="software"/>
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layoutDirection="rtl"
-        android:id="@+id/last_reminders"
-        android:layout_weight=".05"
-        android:orientation="horizontal"
-        />
+     <com.google.android.material.card.MaterialCardView
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layoutDirection="rtl"
+         android:clickable="true"
+         android:onClick="@{clickHandler::onAddButtonClicked}"
+         android:id="@+id/add_reminder"
+         android:layout_margin="@dimen/large_padding"
+         android:backgroundTint="@color/colorPrimaryWithOpacity">
+         <LinearLayout
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:orientation="horizontal">
+             <ImageView
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:src="@drawable/reminder"
+                 android:padding="@dimen/large_padding"/>
+         <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layoutDirection="rtl"
+             android:textColor="@color/brown_box"
+             android:layout_gravity="center_vertical"
+             android:textSize="@dimen/text_size"
+             android:text="@string/string_add_reminder"
+             android:padding="@dimen/large_padding"/>
+
+         </LinearLayout>
+
+     </com.google.android.material.card.MaterialCardView>
      </LinearLayout>
 </androidx.core.widget.NestedScrollView>
+</layout>

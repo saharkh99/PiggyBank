@@ -1,22 +1,16 @@
-package com.example.piggybank;
+package com.example.piggybank.view;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.DatePicker;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-
+import com.example.piggybank.R;
 import com.example.piggybank.model.Types;
-
-import java.util.Date;
-import java.util.Locale;
-import java.util.TimeZone;
 
 public class Calendar extends DialogFragment {
     View view;
@@ -33,6 +27,7 @@ public class Calendar extends DialogFragment {
 
 
     private void findView() {
+
         date=view.findViewById(R.id.date_show);
     }
 }

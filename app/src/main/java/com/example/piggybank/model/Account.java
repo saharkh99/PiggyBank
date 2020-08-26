@@ -1,7 +1,13 @@
 package com.example.piggybank.model;
 
+import androidx.room.Entity;
+import androidx.room.Index;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "account")
 public class Account {
 
+    @PrimaryKey
     private int id;
     private double amount;
 

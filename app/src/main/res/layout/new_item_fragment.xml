@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <data>
+        <variable
+            name="trans"
+            type="com.example.piggybank.model.Transaction" />
+        <variable
+            name="clickHandler"
+            type="com.example.piggybank.view.NewItemFragment.AddAndEditActivityClickHandlers" />
+    </data>
+<LinearLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -129,9 +139,11 @@
         android:backgroundTint="@color/cardview_light_background"
         android:layout_margin="@dimen/normal_margin"
         android:id="@+id/save_item"
+        android:clickable="true"
         android:layout_gravity="center"
+        android:onClick="@{clickHandler::onAddButtonClicked}"
         />
-    <com.example.piggybank.ui.Progress
+    <com.example.piggybank.view.Progress
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:id="@+id/progress"
@@ -139,3 +151,4 @@
         android:visibility="gone"
         />
 </LinearLayout>
+</layout>

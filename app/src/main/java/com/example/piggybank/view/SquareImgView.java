@@ -1,8 +1,7 @@
-package com.example.piggybank.ui;
+package com.example.piggybank.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.widget.ImageView;
 
 public class SquareImgView extends androidx.appcompat.widget.AppCompatImageView {
     public SquareImgView(Context context) {

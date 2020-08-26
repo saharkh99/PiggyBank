@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+<LinearLayout
     android:orientation="vertical" android:layout_width="300dp"
     android:gravity="center_horizontal"
     android:layout_height="300dp">
@@ -23,3 +25,4 @@
         android:layout_margin="@dimen/normal_margin"
         android:padding="@dimen/large_padding"/>
 </LinearLayout>
+</layout>

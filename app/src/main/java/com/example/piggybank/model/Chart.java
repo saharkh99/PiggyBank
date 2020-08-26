@@ -1,24 +1,41 @@
 package com.example.piggybank.model;
-
-import com.anychart.AnyChart;
-import com.anychart.AnyChartView;
-import com.anychart.chart.common.dataentry.DataEntry;
-import com.anychart.chart.common.dataentry.ValueDataEntry;
-import com.anychart.charts.Cartesian;
-import com.anychart.charts.Pie;
-
-import android.content.res.Resources;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
+import android.graphics.Color;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class Chart {
-    int hospital, beauty, bill, exchange, check, clothes, foods, gas, present, income, internet,transport;
-    public void pieChart(Resources resource, AnyChartView anyChartView,List<Transaction>transactionsList){
-        List<DataEntry> data = new ArrayList<>();
+    private PieData pieData;
+    private PieDataSet pieDataSet;
+    private int hospital, beauty, bill, exchange, check, clothes, foods, gas, present, income, internet,transport;
+    public void pieChartMonthly(PieChart pieChart, List<Transaction>transactionsList){
+
+        Log.d("2", "2");
+
+        pieDataSet = new PieDataSet(setData(transactionsList,pieChart), "");
+        pieData = new PieData(pieDataSet);
+        pieChart.setData(pieData);
+        pieDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+        pieDataSet.setSliceSpace(2f);
+        pieDataSet.setLabel("گزارش ماهیانه");
+        pieDataSet.setValueTextColor(Color.WHITE);
+        pieData.setDrawValues(false);
+        pieChart.getLegend().setEnabled(false);
+        pieChart.getDescription().setText("گزارش ماه ");
+        pieDataSet.setValueTextSize(2f);
+
+    }
+    private List<PieEntry> setData(List<Transaction> transactionsList,PieChart pieChart) {
+        List<PieEntry> data = new ArrayList<>();
         for(int i=0;i<transactionsList.size();i++){
-            String type=transactionsList.get(i).getType();
+            String type=Types.getRes(transactionsList.get(i).getType());
             switch (type){
                 case "hospital":hospital++;
                 case "beauty":beauty++;
@@ -34,68 +51,18 @@ public class Chart {
                 case "transport":transport++;
             }
         }
-        data.add(new ValueDataEntry("پزشکلی", hospital));
-        data.add(new ValueDataEntry("زیبایی", beauty));
-        data.add(new ValueDataEntry("قبض", bill));
-        data.add(new ValueDataEntry("کارت به کارت", exchange));
-        data.add(new ValueDataEntry("خرید اینترنتی", check));
-        data.add(new ValueDataEntry("لباس", clothes));
-        data.add(new ValueDataEntry("غذا", foods));
-        data.add(new ValueDataEntry("بنزین", gas));
-        data.add(new ValueDataEntry("هدیه", present));
-        data.add(new ValueDataEntry("اینرنت", internet));
-        data.add(new ValueDataEntry("حمل و نقل", transport));
-
-        Pie pie = AnyChart.pie();
-        pie.data(data);
-
-        pie.title("گزارش ماهیانه");
-        anyChartView.setChart(pie);
-
+        data.add(new PieEntry(hospital,"پزشکلی"));
+        data.add(new PieEntry(beauty,"زیبایی" ));
+        data.add(new PieEntry(bill,"قبض" ));
+        data.add(new PieEntry(exchange,"کارت به کارت" ));
+        data.add(new PieEntry( check,"خرید اینترنتی"));
+        data.add(new PieEntry(clothes,"لباس" ));
+        data.add(new PieEntry(foods,"غذا" ));
+        data.add(new PieEntry(gas,"بنزین" ));
+        data.add(new PieEntry(present,"هدیه" ));
+        data.add(new PieEntry(internet,"اینرنت" ));
+        data.add(new PieEntry(transport,"حمل و نقل" ));
+ return data;
     }
-
-    public void barChart(Resources resource, AnyChartView anyChartView,List<Transaction>transactionsList){
-        List<DataEntry> data = new ArrayList<>();
-        for(int i=0;i<transactionsList.size();i++){
-            String type=transactionsList.get(i).getType();
-            switch (type){
-                case "hospital":hospital++;
-                case "beauty":beauty++;
-                case "bill":bill++;
-                case "exchange":exchange++;
-                case "check":check++;
-                case "clothes":clothes++;
-                case "foods":foods++;
-                case "gas":gas++;
-                case "present":present++;
-                case "income":income++;
-                case "internet":internet++;
-                case "transport":transport++;
-            }
-        }
-        data.add(new ValueDataEntry("پزشکلی", hospital));
-        data.add(new ValueDataEntry("زیبایی", beauty));
-        data.add(new ValueDataEntry("قبض", bill));
-        data.add(new ValueDataEntry("کارت به کارت", exchange));
-        data.add(new ValueDataEntry("خرید اینترنتی", check));
-        data.add(new ValueDataEntry("لباس", clothes));
-        data.add(new ValueDataEntry("غذا", foods));
-        data.add(new ValueDataEntry("بنزین", gas));
-        data.add(new ValueDataEntry("هدیه", present));
-        data.add(new ValueDataEntry("اینرنت", internet));
-        data.add(new ValueDataEntry("حمل و نقل", transport));
-        Cartesian barChart=AnyChart.bar();
-        barChart.animation(true);
-        barChart.data(data);
-        barChart.title("گزارش ماهیانه");
-        anyChartView.setChart(barChart);
-
-    }
-
-
-
-
-
-
 
 }

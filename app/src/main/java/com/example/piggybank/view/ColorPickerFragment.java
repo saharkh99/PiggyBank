@@ -1,4 +1,4 @@
-package com.example.piggybank.ui;
+package com.example.piggybank.view;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,13 +7,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.piggybank.R;
 import com.example.piggybank.adapter.ColorPickerAdapter;
+import com.example.piggybank.databinding.ColorPickerFragmentBinding;
+
 public class ColorPickerFragment extends DialogFragment {
-    View view;
+    private ColorPickerFragmentBinding colorPickerFragmentBinding;
     static Bundle args=new Bundle();
     static ColorPickerFragment fragment = new ColorPickerFragment();
     int[] colors={R.color.color1,R.color.color2,R.color.color3,R.color.color4,R.color.color5,R.color.color6,
@@ -21,18 +24,15 @@ public class ColorPickerFragment extends DialogFragment {
     RecyclerView recyclerView;
     ColorPickerAdapter adapter;
     private static int index;
-    public static ColorPickerFragment newInstance() {
-        fragment.setArguments(args);
-        return fragment;
-    }
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.color_picker_fragment, container, false);
+        colorPickerFragmentBinding= DataBindingUtil.inflate(inflater
+                ,R.layout.color_picker_fragment,container,false);
         findView();
         setRecyclerView();
         getDialog().setContentView(R.layout.color_picker_fragment);
-        return  view;
+        return  colorPickerFragmentBinding.getRoot();
     }
 
     private void setRecyclerView() {
@@ -51,10 +51,11 @@ public class ColorPickerFragment extends DialogFragment {
         RecyclerView.LayoutManager manager = new GridLayoutManager(getActivity(),4);
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
     }
 
     private void findView() {
-        recyclerView= view.findViewById(R.id.recycle);
-
+        recyclerView= colorPickerFragmentBinding.recycle;
     }
 }

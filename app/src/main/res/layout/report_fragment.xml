@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="clickHandler"
+            type="com.example.piggybank.view.ReportFragment.AddAndEditActivityClickHandlers" />
+    </data>
+<androidx.core.widget.NestedScrollView
+
     android:layout_width="match_parent"
     android:background="@color/colorPrimaryWithOpacity"
     android:layout_height="match_parent">
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_marginLeft="@dimen/large_margin"
-    android:layout_marginTop="@dimen/large_margin"
-    android:layout_marginRight="@dimen/large_margin"
-    android:layout_height="match_parent">
     <LinearLayout
+        android:layout_margin="@dimen/large_margin"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -27,7 +29,7 @@
             app:cardElevation="@dimen/normal_margin"
             app:cardCornerRadius="@dimen/normal_margin"
             android:layout_height="wrap_content">
-     <com.anychart.AnyChartView
+     <com.github.mikephil.charting.charts.PieChart
          android:layout_width="match_parent"
          android:layout_height="200dp"
          android:id="@+id/monthly_pie_Chart"/>
@@ -35,13 +37,33 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             app:cardElevation="@dimen/normal_margin"
-            android:layout_marginTop="@dimen/large_margin"
             app:cardCornerRadius="@dimen/normal_margin"
+            android:layout_marginTop="@dimen/large_margin"
             android:layout_height="wrap_content">
-            <com.anychart.AnyChartView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:id="@+id/monthly_bar_Chart"/>
+                android:layout_height="120dp"
+                android:orientation="vertical">
+                <TextView
+                    android:padding="@dimen/large_padding"
+                    android:layout_width="match_parent"
+                    android:id="@+id/report_date"
+                    android:text="@string/string_date"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:padding="@dimen/large_padding"
+                    android:layout_width="match_parent"
+                    android:text="@string/string_most_expense"
+                    android:layoutDirection="rtl"
+                    android:id="@+id/report_most_cost"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:padding="@dimen/large_padding"
+                    android:layout_width="match_parent"
+                    android:text="@string/string_income"
+                    android:id="@+id/report_daily_income"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
@@ -57,16 +79,19 @@
           android:padding="@dimen/large_padding"
           android:layout_width="match_parent"
           android:text="@string/string_month"
+          android:id="@+id/report_month"
           android:layout_height="wrap_content"/>
         <TextView
             android:padding="@dimen/large_padding"
             android:layout_width="match_parent"
             android:text="@string/string_expense"
+            android:id="@+id/report_cost"
             android:layout_height="wrap_content"/>
         <TextView
             android:padding="@dimen/large_padding"
             android:layout_width="match_parent"
             android:text="@string/string_income"
+            android:id="@+id/report_income"
             android:layout_height="wrap_content"/>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
@@ -75,7 +100,16 @@
             android:layout_marginTop="@dimen/large_margin"
             app:cardCornerRadius="@dimen/normal_margin"
             app:cardElevation="@dimen/normal_margin"
+            android:onClick="@{clickHandler::onButtonClicked}"
+            android:id="@+id/list_costs"
+            android:clickable="true"
+            android:layoutDirection="ltr"
             android:layout_height="50dp">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/clothes"
+                android:padding="@dimen/large_padding"/>
             <TextView
                 android:padding="@dimen/large_padding"
                 android:layout_width="match_parent"
@@ -86,9 +120,17 @@
             android:layout_width="match_parent"
             app:cardElevation="@dimen/normal_margin"
             app:cardCornerRadius="@dimen/normal_margin"
-
+            android:layoutDirection="ltr"
+            android:id="@+id/list_incomes"
+            android:clickable="true"
+            android:onClick="@{clickHandler::onButtonClicked}"
             android:layout_marginTop="@dimen/large_margin"
             android:layout_height="50dp">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/income"
+                android:padding="@dimen/large_padding"/>
             <TextView
                 android:padding="@dimen/large_padding"
                 android:layout_width="match_parent"
@@ -96,5 +138,5 @@
                 android:layout_height="wrap_content"/>
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
-</ScrollView>
-</LinearLayout>
+</androidx.core.widget.NestedScrollView>
+</layout>

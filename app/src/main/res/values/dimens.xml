@@ -7,7 +7,7 @@
     <dimen name="xlarge_margin">20dp</dimen>
     <dimen name="large_padding">10dp</dimen>
     <dimen name="text_size">16dp</dimen>
-    <dimen name="title">24dp</dimen>
+    <dimen name="title">23dp</dimen>
     <dimen name="tab_animation">3000</dimen>
     <dimen name="move_60">60dp</dimen>
     <dimen name="move_115">115dp</dimen>

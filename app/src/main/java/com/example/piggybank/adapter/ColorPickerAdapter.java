@@ -7,15 +7,18 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.piggybank.R;
+import com.example.piggybank.databinding.ItemPickerBinding;
 
 public class ColorPickerAdapter extends RecyclerView.Adapter<ColorPickerAdapter.ItemViewHolder> {
 
     int colors[];
     Context context;
     private onItemClickListener mlistener;
+    ItemPickerBinding binding;
     public interface onItemClickListener{
         void onItemClick(int position);
     }
@@ -30,13 +33,13 @@ public class ColorPickerAdapter extends RecyclerView.Adapter<ColorPickerAdapter.
     @Override
     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_picker, parent, false);
-        return new ItemViewHolder(view,mlistener);
+        binding= DataBindingUtil.bind(view);
+        return new ItemViewHolder(binding,mlistener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
         holder.img.setImageResource(colors[position]);
-
     }
 
     @Override
@@ -47,18 +50,14 @@ public class ColorPickerAdapter extends RecyclerView.Adapter<ColorPickerAdapter.
     public class ItemViewHolder extends RecyclerView.ViewHolder {
 
         ImageView img;
-        public ItemViewHolder(@NonNull View itemView,final onItemClickListener listener) {
-            super(itemView);
-            img=itemView.findViewById(R.id.img_item);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                            int position1 = getAdapterPosition();
-                            listener.onItemClick(position1);
+        public ItemViewHolder(@NonNull ItemPickerBinding itemView,final onItemClickListener listener) {
+            super(itemView.getRoot());
+            img=binding.imgItem;
+            itemView.getRoot().setOnClickListener(view -> {
+                        int position1 = getAdapterPosition();
+                        listener.onItemClick(position1);
 
-                    }
-
-            });
+                });
         }
     }
 }

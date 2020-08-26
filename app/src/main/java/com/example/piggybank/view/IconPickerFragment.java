@@ -1,4 +1,4 @@
-package com.example.piggybank.ui;
+package com.example.piggybank.view;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,7 +14,6 @@ import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.piggybank.R;
-import com.example.piggybank.adapter.ColorPickerAdapter;
 import com.example.piggybank.adapter.IconPickerAdapter;
 
 public class IconPickerFragment extends DialogFragment {
@@ -43,7 +42,6 @@ public class IconPickerFragment extends DialogFragment {
                     index = position;
                     Intent intent = new Intent();
                     intent.putExtra("selectedDate", index);
-                    Log.d("index", index+"");
                     getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
                     getFragmentManager().popBackStackImmediate();
             }

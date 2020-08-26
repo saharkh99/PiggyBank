@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/colorPrimaryWithOpacity">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:padding="@dimen/large_margin"
+            android:id="@+id/remove"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="wrap_content"
+            android:src="@drawable/remove"/>
+    <com.example.piggybank.GridRecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_margin="@dimen/large_margin"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layoutAnimation="@anim/grid_layout_animation_from_bottom"
+        />
+    </LinearLayout>
+</layout>
