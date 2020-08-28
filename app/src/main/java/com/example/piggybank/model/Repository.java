@@ -36,35 +36,11 @@ public class Repository {
     private TransactionDao transactionDao;
     private TypeDao typeDao;
     private MutableLiveData<List<Transaction>> transactions,transactions2;
+    private MutableLiveData<List<Task>> tasks;
     private MutableLiveData<MonthlyReport> monthlyReport;
     private Executor executor;
     private MutableLiveData<Boolean> result;
     Disposable disposable;
-    private onSaveItem mlistener;
-    private getReport listener1;
-    private onGetItem listener2;
-
-    public interface onSaveItem {
-        void onItemClick(boolean result);
-    }
-
-    public interface getReport {
-        void onItemClick(MutableLiveData<MonthlyReport> mutableLiveData, boolean result1);
-    }
-    public interface onGetItem {
-        void  onItemClick(LiveData<List<Transaction>> mutableLiveData, boolean result2);
-    }
-
-    public void saveOnItemListener(Repository.onSaveItem listener) {
-        mlistener = listener;
-    }
-
-    public void saveOnItemListener(Repository.getReport listener) {
-        listener1 = listener;
-    }
-    public void saveOnItemListener(Repository.onGetItem listener) {
-        listener2 = listener;
-    }
 
     public Repository(Application application) {
 
@@ -141,6 +117,50 @@ public class Repository {
                     }
                 });
         return transactions;
+    }
+    public MutableLiveData<List<Task>> getTask(Single<JsonObject> mApiService, String itemType) {
+        tasks=new MutableLiveData<>();
+
+        mApiService
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<JsonObject>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        disposable = d;
+                    }
+
+                    @Override
+                    public void onSuccess(JsonObject jsonObject) {
+                        try {
+                            List<Task> tr = new ArrayList<>();
+                            JSONObject jso = new JSONObject(jsonObject.toString());
+                            String res = jso.getString("task");
+                            if (res != null) {
+                                JSONArray jsonArray = new JSONArray(res);
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject js = jsonArray.getJSONObject(i);
+                                    Task task = new Task();
+                                    task.setAmountTask(js.getDouble("amount"));
+                                    task.setIdTask(js.getInt("id"));
+                                    task.setDatesTask("date");
+                                    tr.add(task);
+
+
+                                }
+                                tasks.setValue(tr);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                    }
+                });
+        return tasks;
     }
     public MutableLiveData<List<Transaction>>  getLastIncome(Single<JsonObject> mApiService, String itemType) {
         transactions2=new MutableLiveData<>();
@@ -351,6 +371,38 @@ public class Repository {
                             Log.d("jsonObj", res);
                             if (res.equals("true")) {
                                 Log.d("add", "add");
+                                result.setValue(true);
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                    }
+                });
+        Log.d("result", result+"");
+        return result;
+    }
+    public MutableLiveData<Boolean> deleteItem(Single<JsonObject> mApiService) {
+        mApiService.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<JsonObject>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(JsonObject jsonObject) {
+                        try {
+                            JSONObject object = new JSONObject(jsonObject.toString());
+                            String res = object.getString("delete");
+                            Log.d("jsonObj", res);
+                            if (res.equals("true")) {
+                                Log.d("delete", "delete");
                                 result.setValue(true);
                             }
                         } catch (Exception e) {

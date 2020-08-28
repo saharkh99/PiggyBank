@@ -32,7 +32,7 @@ public class HomeFragment extends Fragment {
     private CardView reminder;
 
 
-    // - square image does not work-cardview redius nadare -extra types
+    // - square image does not work-cardview redius nadare -extra types-reduce webservices
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

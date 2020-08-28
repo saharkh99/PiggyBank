@@ -28,6 +28,16 @@ public interface BaseApiService {
 
 
     );
+    @FormUrlEncoded
+    @POST("wallet/addTask.php")
+    Single<JsonObject> saveTask(@Field("amount") double amount,
+                                  @Field("title") String title,
+                                  @Field("date") String date
+
+    );
+    @FormUrlEncoded
+    @POST("wallet/deleteRecord.php")
+    Single<JsonObject> deleteItem(@Field("table") String table,@Field("id")int id);
 
     @FormUrlEncoded
     @POST("wallet/getCosts.php")
@@ -36,6 +46,9 @@ public interface BaseApiService {
     @FormUrlEncoded
     @POST("wallet/getIncomes.php")
     Single<JsonObject> getLastIncomes(@Field("limit") int limit);
+    @FormUrlEncoded
+    @POST("wallet/getTask.php")
+    Single<JsonObject> getTask(@Field("limit") int limit);
 
     @FormUrlEncoded
     @POST("wallet/monthlyReport.php")

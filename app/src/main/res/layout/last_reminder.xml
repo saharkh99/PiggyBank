@@ -1,42 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="150dp"
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<com.google.android.material.card.MaterialCardView
+    android:layout_width="100dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:elevation="@dimen/cardview_default_elevation"
-    app:cardCornerRadius="@dimen/cardview_default_radius"
-    app:cardElevation="@dimen/cardview_default_elevation"
-    android:id="@+id/new_item"
-    android:layout_height="150dp">
+    app:cardCornerRadius="@dimen/normal_margin"
+    android:layout_margin="@dimen/normal_margin"
+    app:cardElevation="@dimen/normal_margin"
+    android:backgroundTint="@color/colorAccent"
+    android:id="@+id/task_item"
+    android:layout_height="100dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/xlarge_margin"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:id="@+id/new_date"
-            android:layout_marginBottom="@dimen/normal_margin"
+            android:id="@+id/task_date"
             android:text="@string/string_date"
             android:textColor="@color/brown_box"
-            android:textStyle="bold"
-            android:textSize="@dimen/title"/>
+            android:textSize="@dimen/text_size"/>
 
 
         <TextView
+            android:id="@+id/task_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:id="@+id/new_title"
-            android:layout_marginTop="@dimen/large_margin"
-            android:layout_marginBottom="@dimen/normal_margin"
             android:text="@string/string_title"
-            android:textColor="@color/brown_box"
-            android:textStyle="bold"
-            android:textSize="@dimen/title"/>
+            android:textColor="@color/colorPrimaryDarkWithOpacity"
+            android:textSize="@dimen/text_size"
+            />
+        <TextView
+            android:id="@+id/task_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/string_amount"
+            android:textColor="@color/brown_box_with_opacity"
+            android:textSize="@dimen/text_size"
+            android:textStyle="bold" />
     </LinearLayout>
 
 </com.google.android.material.card.MaterialCardView>
+</layout>
