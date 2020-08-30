@@ -24,8 +24,22 @@ public class ListItemViewModel extends ViewModel {
         repository = new Repository(application);
         mApiService = UtilsApi.getAPIService();
     }
+
     public MutableLiveData<List<Transaction>> getItemsMonthly(String month) {
         return repository.getItemsMonthly(mApiService.getItemsMonthly(month));
     }
+
+    public MutableLiveData<Boolean> deleteCost(int id) {
+        return repository.deleteItem(mApiService.deleteItem("cost", id));
+    }
+
+    public MutableLiveData<Boolean> deleteIncome(int id) {
+        return repository.deleteItem(mApiService.deleteItem("income", id));
+    }
+
+    public MutableLiveData<Boolean> deleteTask(int id) {
+        return repository.deleteItem(mApiService.deleteItem("task", id));
+    }
+
 
 }

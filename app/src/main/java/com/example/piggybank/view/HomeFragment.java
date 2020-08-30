@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.piggybank.R;
 import com.example.piggybank.adapter.ItemAdapter;
 import com.example.piggybank.databinding.HomeFragmentBinding;
-import com.example.piggybank.Util.Types;
+import com.example.piggybank.Util.Utilities;
 import com.example.piggybank.viewmodel.FragmentFactory;
 import com.example.piggybank.viewmodel.HomeFragmentViewModel;
 
@@ -48,7 +48,7 @@ public class HomeFragment extends Fragment {
         reminder = binding.addReminder;
         binding.setClickHandler(new AddAndEditTaskClickHandlers(this.getView()));
 
-        initReportHome(Types.getDate(false));
+        initReportHome(Utilities.getDate(false));
         setRecyclerViewCostsList();
         setRecyclerViewIncomesList();
         return binding.getRoot();

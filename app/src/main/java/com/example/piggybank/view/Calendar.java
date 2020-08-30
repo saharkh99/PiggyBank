@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,8 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.piggybank.R;
-import com.example.piggybank.Util.Types;
-import com.example.piggybank.adapter.TaskAdapter;
+import com.example.piggybank.Util.Utilities;
 
 public class Calendar extends DialogFragment {
     private View view;
@@ -41,10 +38,9 @@ public class Calendar extends DialogFragment {
 
     }
 
-
     private void showDate() {
         date = view.findViewById(R.id.date_show);
-        dateString = Types.getDate(true);
+        dateString = Utilities.getDate(true);
         date.setText(dateString);
     }
 

@@ -44,10 +44,28 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         v = isVisible;
     }
 
+
+    /**
+     * changing <code>recyclerView</code> if one transaction added into the db.
+     * Duo to showing last 5 transactions , last one must be delete if the number of list is over than 5.
+     * @param transaction transaction for adding to recyclerView
+     */
     public void addItem(Transaction transaction) {
         transactions.add(0, transaction);
         if (transactions.size() > 4)
             transactions.remove(transactions.size() - 1);
+        notifyDataSetChanged();
+        this.notifyItemChanged(transactions.size());
+
+    }
+
+
+    /**
+     * changing <code>recyclerView</code> if one transaction deleted from the db.
+     * @param transaction transaction for removing from recyclerView
+     */
+    public void delete(Transaction transaction) {
+        transactions.remove(transaction);
         notifyDataSetChanged();
         this.notifyItemChanged(transactions.size());
 
@@ -100,6 +118,10 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
             title = binding.lastType;
             img = binding.lastIcon;
             checkBox = binding.checkbox;
+
+            /**
+             * a boolean is passed to the fragment for removing or adding item which is selected from the db
+             */
             itemView.getRoot().setOnClickListener(view -> {
                 if (listener != null) {
                     int position1 = getAdapterPosition();

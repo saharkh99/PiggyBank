@@ -5,7 +5,10 @@ import io.reactivex.Single;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
-//changed
+
+/**
+ * its too much just because i wasn't sure about my php code :)
+ */
 public interface BaseApiService {
 
     @FormUrlEncoded

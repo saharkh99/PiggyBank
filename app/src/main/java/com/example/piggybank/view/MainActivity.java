@@ -9,6 +9,15 @@ import com.example.piggybank.R;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
+/**
+ * this project is for managing money and reminding tasks which shows transactions base on
+ * month and day and also notify tasks which is defined before.
+ * some part is written by mvvm and rxandroid
+ *
+ *
+ * @author sahar
+ *
+ */
 public class MainActivity extends AppCompatActivity {
     TextInputEditText username;
     TextInputEditText password;

@@ -3,6 +3,7 @@ package com.example.piggybank.Util;
 import android.content.Context;
 import android.util.AttributeSet;
 
+
 public class SquareImgView extends androidx.appcompat.widget.AppCompatImageView {
     public SquareImgView(Context context) {
         super(context);
@@ -16,6 +17,9 @@ public class SquareImgView extends androidx.appcompat.widget.AppCompatImageView 
         super(context, attrs, defStyle);
     }
 
+    /**
+     * this method gets height and sets a weight as the same as height
+     */
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);

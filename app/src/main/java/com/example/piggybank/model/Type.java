@@ -5,7 +5,11 @@ import androidx.databinding.Bindable;
 import androidx.databinding.library.baseAdapters.BR;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-//changed
+
+
+/**
+ *  type of transaction with id , name , icon
+ */
 @Entity(tableName = "types")
 public class Type extends BaseObservable {
     @PrimaryKey

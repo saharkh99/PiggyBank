@@ -18,7 +18,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.example.piggybank.R;
 import com.example.piggybank.databinding.NewItemFragmentBinding;
 import com.example.piggybank.model.Transaction;
-import com.example.piggybank.Util.Types;
+import com.example.piggybank.Util.Utilities;
 import com.example.piggybank.viewmodel.FragmentFactory;
 import com.example.piggybank.viewmodel.NewItemFragmentViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -109,7 +109,7 @@ public class NewItemFragment extends BottomSheetDialogFragment {
             if (resultCode == Activity.RESULT_OK) {
                 Bundle bundle = data.getExtras();
                 resultIcon = bundle.getInt("selectedDate", 0);
-                iconPicker.setImageResource(Types.getRes(types.get(resultIcon)));
+                iconPicker.setImageResource(Utilities.getRes(types.get(resultIcon)));
                 iconPickerFragment.dismiss();
             }
         }
@@ -125,9 +125,9 @@ public class NewItemFragment extends BottomSheetDialogFragment {
     }
 
     public void setChanges() {
-        if (viewModel.getReportMonthly(Types.getDate(false)) != null) {
-            viewModel.getReportMonthly(Types.getDate(false)).observe(getActivity(), monthlyReport -> {
-                HomeFragment.month.setText("ماه :" + Types.getDate(false));
+        if (viewModel.getReportMonthly(Utilities.getDate(false)) != null) {
+            viewModel.getReportMonthly(Utilities.getDate(false)).observe(getActivity(), monthlyReport -> {
+                HomeFragment.month.setText("ماه :" + Utilities.getDate(false));
                 int balanceInt = (int) monthlyReport.getBalance();
                 if (balanceInt < 0) {
                     HomeFragment.balance.setText("مانده :" + "-" + Math.abs(balanceInt));
@@ -153,7 +153,7 @@ public class NewItemFragment extends BottomSheetDialogFragment {
         public void onAddButtonClicked(View view) {
             if (checkCorrectly()) {
                 if (isCost) {
-                    MutableLiveData<Boolean> result = (viewModel.saveCost(amountDouble, resultColor, Types.getRes(types.get(resultIcon)), "u1", Types.getDate(true)));
+                    MutableLiveData<Boolean> result = (viewModel.saveCost(amountDouble, resultColor, Utilities.getRes(types.get(resultIcon)), "u1", Utilities.getDate(true)));
                     if (result != null) {
                         result.observe(getActivity(), aBoolean -> {
                             if (aBoolean) {
@@ -161,7 +161,7 @@ public class NewItemFragment extends BottomSheetDialogFragment {
                                 transaction.setAmount(amountDouble);
                                 transaction.setColor(resultColor);
                                 transaction.setItemType("هزینه");
-                                transaction.setType(Types.getRes(types.get(resultIcon)));
+                                transaction.setType(Utilities.getRes(types.get(resultIcon)));
                                 HomeFragment.itemAdapter.addItem(transaction);
                                 HomeFragment.itemAdapter.notifyItemChanged(HomeFragment.itemAdapter.getItemCount());
                                 setChanges();
@@ -171,7 +171,7 @@ public class NewItemFragment extends BottomSheetDialogFragment {
                         });
                     }
                 } else {
-                    MutableLiveData<Boolean> result = (viewModel.saveIncome(amountDouble, resultColor, Types.getRes(types.get(resultIcon)), "u1", Types.getDate(true)));
+                    MutableLiveData<Boolean> result = (viewModel.saveIncome(amountDouble, resultColor, Utilities.getRes(types.get(resultIcon)), "u1", Utilities.getDate(true)));
                     if (result != null) {
                         result.observe(getActivity(), aBoolean -> {
                             if (aBoolean) {
@@ -179,7 +179,7 @@ public class NewItemFragment extends BottomSheetDialogFragment {
                                 transaction.setAmount(amountDouble);
                                 transaction.setColor(resultColor);
                                 transaction.setItemType("درامد");
-                                transaction.setType(Types.getRes(types.get(resultIcon)));
+                                transaction.setType(Utilities.getRes(types.get(resultIcon)));
                                 HomeFragment.itemAdapter.addItem(transaction);
                                 HomeFragment.itemAdapter.notifyItemChanged(HomeFragment.itemAdapter.getItemCount());
                                 setChanges();

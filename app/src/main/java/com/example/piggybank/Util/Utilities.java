@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
-public class Types {
+public class Utilities {
     private static List<String> types = Arrays.asList(new String[]{"hospital", "beauty", "bill", "exchange", "check", "clothes", "foods", "gas", "present", "income", "internet", "transport"});
     private static List<String> months = Arrays.asList(new String[]{"فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "ابان", "آذر", "دی", "بهمن", "اسفند"});
     private static int[] icons = {R.drawable.ambulance, R.drawable.barbershop, R.drawable.bill, R.drawable.cardexchange, R.drawable.check, R.drawable.clothes

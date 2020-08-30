@@ -18,10 +18,14 @@ import com.example.piggybank.Util.GridRecyclerView;
 import com.example.piggybank.R;
 import com.example.piggybank.adapter.ItemAdapter;
 import com.example.piggybank.databinding.ListItemsFragmentBinding;
-import com.example.piggybank.Util.Types;
+import com.example.piggybank.Util.Utilities;
 import com.example.piggybank.viewmodel.FragmentFactory;
 import com.example.piggybank.viewmodel.ListItemViewModel;
+import com.google.android.material.snackbar.Snackbar;
 
+/**
+ * The main idea of this class is showing all the transactions and tasks for edit and delete
+ */
 public class ListItems extends DialogFragment {
     static ListItemViewModel viewModel;
     ListItemsFragmentBinding binding;
@@ -44,18 +48,20 @@ public class ListItems extends DialogFragment {
         imageView = binding.remove;
         setRecyclerView();
         removeItem();
+        binding.setClickHandler(new AddAndEditTransactionClickHandlers(this.getView()));
         getDialog().setContentView(R.layout.list_items_fragment);
         return binding.getRoot();
     }
 
     private void removeItem() {
 
+
     }
 
     private void setRecyclerView() {
-        if (viewModel.getItemsMonthly(Types.getDate(false)) != null)
+        if (viewModel.getItemsMonthly(Utilities.getDate(false)) != null)
 
-            viewModel.getItemsMonthly(Types.getDate(false))
+            viewModel.getItemsMonthly(Utilities.getDate(false))
                     .observe(getActivity(), transactions -> {
                         itemAdapter = new ItemAdapter(getActivity(), transactions, true);
                         itemAdapter.setOnItemClickListener((position, v) -> {
@@ -69,5 +75,29 @@ public class ListItems extends DialogFragment {
                     });
     }
 
+    public class AddAndEditTransactionClickHandlers {
+        private View context;
+        private Snackbar snackbar;
 
+
+        public AddAndEditTransactionClickHandlers(View context) {
+            this.context = context;
+            binding.setClickHandler(this);
+        }
+
+
+        /**
+         * click for deleting items
+         *
+         * @param view
+         */
+        public void onButtonClicked(View view) {
+
+
+        }
+    }
 }
+
+
+
+

@@ -29,7 +29,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-//changed
+
+/**
+ * calling apis and dbs
+ */
 public class Repository {
 
     private MonthlyReportDao monthlyReportDao;

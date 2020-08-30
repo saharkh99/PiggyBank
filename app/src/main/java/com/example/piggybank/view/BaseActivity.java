@@ -22,7 +22,7 @@ import com.duolingo.open.rtlviewpager.RtlViewPager;
 import com.example.piggybank.Network.InternetConnection;
 import com.example.piggybank.R;
 import com.example.piggybank.Util.NotificationService;
-import com.example.piggybank.Util.Types;
+import com.example.piggybank.Util.Utilities;
 import com.example.piggybank.adapter.ViewPagerAdapter;
 import com.example.piggybank.viewmodel.BaseViewModel;
 import com.example.piggybank.viewmodel.FragmentFactory;
@@ -174,13 +174,17 @@ public class BaseActivity extends AppCompatActivity {
         am.set(AlarmManager.RTC_WAKEUP, timeInMillis, pi);
     }
 
+
+    /**
+     * setting the alarm for task which its date <code>equal</code>today's date
+     */
     private void setAlarms() {
 
         baseViewModel.getTask().observe(this, tasks -> {
 
             for (int index = 0; index < tasks.size(); index++) {
-                if (tasks.get(index).getDatesTask().equals(Types.getDate(true))) {
-                    Log.d("tasks", tasks.get(index).getDatesTask() + Types.getDate(true));
+                if (tasks.get(index).getDatesTask().equals(Utilities.getDate(true))) {
+                    Log.d("tasks", tasks.get(index).getDatesTask() + Utilities.getDate(true));
                     Intent i = new Intent(getApplicationContext(), NotificationService.class);
                     i.putExtra(NotificationService.TODOUUID, "یاداوری های امروز");
                     i.putExtra(NotificationService.TODOTEXT, tasks.get(index).getAmountTask() + "فراموش نشود" + tasks.get(index).getTitleTask());

@@ -9,7 +9,9 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.piggybank.R;
 import com.example.piggybank.databinding.ItemPickerBinding;
-
+/**
+ * adapter for  icon of <code>cardView</code> and transaction's type
+ */
 public class IconPickerAdapter extends RecyclerView.Adapter<IconPickerAdapter.ItemViewHolder> {
 
     private int icons[];

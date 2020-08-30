@@ -10,6 +10,9 @@ import android.view.animation.Animation;
 
 import com.example.piggybank.R;
 
+/**
+ * i used my own progressbar .its two circle inside of each other like a coin
+ */
 public class Progress extends View{
     Paint paint,paint1;
     private int mSize;
@@ -38,7 +41,9 @@ public class Progress extends View{
         paint.setStyle(Paint.Style.STROKE);
         paint1.setStyle(Paint.Style.FILL);
     }
-
+    /**
+     * two circle
+     */
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -47,6 +52,7 @@ public class Progress extends View{
         canvas.drawCircle(100, 100, 50, paint1);
         setBlur(true);
     }
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
@@ -69,6 +75,10 @@ public class Progress extends View{
         animation();
     //    setBlur(true);
     }
+
+    /**
+     * Rotate around a vertical axis
+     */
     public void animation(){
        ObjectAnimator animation = ObjectAnimator.ofFloat(
                this, "rotationY", 0.0f, 360f, Animation.RELATIVE_TO_SELF,0.5f, Animation.RELATIVE_TO_SELF,0.5f);

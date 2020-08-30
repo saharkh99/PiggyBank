@@ -1,6 +1,6 @@
 package com.example.piggybank.model;
 
-import com.example.piggybank.Util.Types;
+import com.example.piggybank.Util.Utilities;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+/**
+ * i used mikephil api for charts
+ */
 public class Chart {
     private PieData pieData;
     private PieDataSet pieDataSet;
@@ -37,7 +40,7 @@ public class Chart {
     private List<PieEntry> setData(List<Transaction> transactionsList, PieChart pieChart) {
         List<PieEntry> data = new ArrayList<>();
         for (int i = 0; i < transactionsList.size(); i++) {
-            String type = Types.getRes(transactionsList.get(i).getType());
+            String type = Utilities.getRes(transactionsList.get(i).getType());
             switch (type) {
                 case "hospital":
                     hospital++;

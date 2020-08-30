@@ -13,6 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.piggybank.R;
 import com.example.piggybank.databinding.ItemPickerBinding;
 
+
+/**
+ * adapter for  color of <code>cardView</code>
+ */
 public class ColorPickerAdapter extends RecyclerView.Adapter<ColorPickerAdapter.ItemViewHolder> {
 
     private int colors[];

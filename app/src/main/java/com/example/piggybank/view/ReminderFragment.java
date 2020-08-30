@@ -1,7 +1,6 @@
 package com.example.piggybank.view;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.piggybank.R;
-import com.example.piggybank.Util.Types;
+import com.example.piggybank.Util.Utilities;
 import com.example.piggybank.adapter.TaskAdapter;
 import com.example.piggybank.databinding.ReminderFragmentBinding;
 import com.example.piggybank.model.Task;
@@ -62,14 +61,17 @@ public class ReminderFragment extends DialogFragment {
         private Snackbar snackbar;
 
 
-        /**
-         * @param context
-         */
         public AddAndEditActivityClickHandlers(View context) {
             this.context = context;
             binding.setClickHandler(this);
         }
 
+
+        /**
+         * @param number convert it to int
+         * @return day or month or year
+         * @throws Exception exception for getting something that is not convertable to <code>int</code>
+         */
         public int safeParseInt(String number) throws Exception {
             if (number != null) {
                 return Integer.parseInt(number.trim());
@@ -78,6 +80,10 @@ public class ReminderFragment extends DialogFragment {
             }
         }
 
+        /**
+         * converted and splited date to <code>int</code> changes to something like this 1400 sahrivar 3 then passes to server
+         * if <code>true</code> comes bask  from server snackbar shows
+         */
         public void onAddButtonClicked(View view) {
 
             amount = binding.amountItem;
@@ -89,7 +95,7 @@ public class ReminderFragment extends DialogFragment {
                 int year = safeParseInt(dateParts[2]);
                 int month = safeParseInt(dateParts[1]);
                 int day = safeParseInt(dateParts[0]);
-                String result = year + " " + Types.getMonth(month - 1) + " " + day;
+                String result = year + " " + Utilities.getMonth(month - 1) + " " + day;
                 viewModel.saveTask(Double.parseDouble(amount.getText().toString()), title.getText().toString(), result)
                         .observe(getActivity(), aBoolean -> {
                             if (aBoolean) {
