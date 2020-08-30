@@ -21,7 +21,7 @@
     android:layout_width="100dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:elevation="@dimen/cardview_default_elevation"
-    app:cardCornerRadius="@dimen/large_margin"
+    android:cardCornerRadius="@dimen/large_margin"
     app:cardElevation="@dimen/cardview_default_elevation"
     android:layout_margin="@dimen/normal_margin"
     android:id="@+id/card_item"

@@ -15,7 +15,7 @@ import com.example.piggybank.databinding.ItemPickerBinding;
 
 public class ColorPickerAdapter extends RecyclerView.Adapter<ColorPickerAdapter.ItemViewHolder> {
 
-    int colors[];
+    private int colors[];
     Context context;
     private onItemClickListener mlistener;
     ItemPickerBinding binding;

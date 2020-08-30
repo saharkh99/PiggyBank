@@ -8,7 +8,7 @@
             type="com.example.piggybank.model.MonthlyReport" />
         <variable
             name="clickHandler"
-            type="com.example.piggybank.view.HomeFragment.AddAndEditActivityClickHandlers" />
+            type="com.example.piggybank.view.HomeFragment.AddAndEditTaskClickHandlers" />
     </data>
 <androidx.core.widget.NestedScrollView
 
@@ -24,7 +24,7 @@
          app:layout_behavior="@string/appbar_scrolling_view_behavior"
          android:orientation="vertical">
 <TextView
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layoutDirection="ltr"
     android:background="@drawable/rectangles"

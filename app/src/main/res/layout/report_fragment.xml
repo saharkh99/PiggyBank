@@ -5,7 +5,7 @@
     <data>
         <variable
             name="clickHandler"
-            type="com.example.piggybank.view.ReportFragment.AddAndEditActivityClickHandlers" />
+            type="com.example.piggybank.view.ReportFragment.AddAndEditReportClickHandlers" />
     </data>
 <androidx.core.widget.NestedScrollView
 
@@ -17,13 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <Switch
-            android:layout_width="wrap_content"
-            android:textColor="@color/brown_box"
-            android:buttonTint="@color/colorAccent"
-            android:text="@string/string_month"
-            android:checked="true"
-            android:layout_height="wrap_content"/>
+
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             app:cardElevation="@dimen/normal_margin"

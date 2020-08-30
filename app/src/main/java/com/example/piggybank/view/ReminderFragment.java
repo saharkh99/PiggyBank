@@ -20,17 +20,16 @@ import com.example.piggybank.databinding.ReminderFragmentBinding;
 import com.example.piggybank.model.Task;
 import com.example.piggybank.viewmodel.FragmentFactory;
 import com.example.piggybank.viewmodel.ReminderViewModel;
+import com.google.android.material.snackbar.Snackbar;
 
 public class ReminderFragment extends DialogFragment {
-    static ReminderViewModel viewModel;
-    ReminderFragmentBinding binding;
+    private static ReminderViewModel viewModel;
+    private ReminderFragmentBinding binding;
     private EditText title, amount;
-    private TaskAdapter itemAdapter;
+    static TaskAdapter itemAdapter;
     private RecyclerView recyclerView;
     private EditText dates;
     private String[] months = {"اسفند", "بهمن", "دی", "اذر", "ابان", "مهر", "شهریور", "مرداد", "تیر", "خرداد", "اردیبهشت", "فروردین"};
-
-
 
 
     @Override
@@ -48,7 +47,6 @@ public class ReminderFragment extends DialogFragment {
     }
 
 
-
     private void setRecyclerView() {
         recyclerView = binding.recycle;
         if (viewModel.getLastTask() != null)
@@ -60,7 +58,8 @@ public class ReminderFragment extends DialogFragment {
     }
 
     public class AddAndEditActivityClickHandlers {
-        View context;
+        private View context;
+        private Snackbar snackbar;
 
 
         /**
@@ -90,20 +89,26 @@ public class ReminderFragment extends DialogFragment {
                 int year = safeParseInt(dateParts[2]);
                 int month = safeParseInt(dateParts[1]);
                 int day = safeParseInt(dateParts[0]);
-                String result =year+" "+Types.getMonth(month-1)+" "+ day;
-                Log.d("result", result);
+                String result = year + " " + Types.getMonth(month - 1) + " " + day;
                 viewModel.saveTask(Double.parseDouble(amount.getText().toString()), title.getText().toString(), result)
                         .observe(getActivity(), aBoolean -> {
-                            if(aBoolean){
-                                Task task=new Task();
+                            if (aBoolean) {
+                                Task task = new Task();
                                 task.setDatesTask(result);
-                                task.setAmountTask((int)Double.parseDouble(amount.getText().toString()));
+                                task.setAmountTask((int) Double.parseDouble(amount.getText().toString()));
                                 task.setTitleTask(title.getText().toString());
                                 itemAdapter.addItem(task);
+                                snackbar = Snackbar.make(view, "با موفقیت ذخیره شد", Snackbar.LENGTH_INDEFINITE);
+                                snackbar.show();
+                            } else {
+                                snackbar = Snackbar.make(view, "دوباره امتحان کنید", Snackbar.LENGTH_INDEFINITE);
+                                snackbar.show();
                             }
                         });
 
             } catch (Exception e) {
+                snackbar = Snackbar.make(view, "مقادیر را به درستی وارد کنید", Snackbar.LENGTH_INDEFINITE);
+                snackbar.show();
                 e.printStackTrace();
             }
 

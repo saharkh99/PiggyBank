@@ -12,8 +12,8 @@ import com.example.piggybank.databinding.ItemPickerBinding;
 
 public class IconPickerAdapter extends RecyclerView.Adapter<IconPickerAdapter.ItemViewHolder> {
 
-    int icons[];
-    Context context;
+    private int icons[];
+    private Context context;
     private ItemPickerBinding itemPickerBinding;
     private onItemClickListener mlistener;
     public interface onItemClickListener{

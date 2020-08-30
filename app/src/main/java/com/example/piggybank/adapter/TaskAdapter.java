@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.piggybank.R;
 import com.example.piggybank.databinding.LastReminderBinding;
 import com.example.piggybank.model.Task;
-import com.example.piggybank.model.Transaction;
 
 import java.util.List;
 
@@ -34,7 +33,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ItemViewHolder
         if(tasks.size()>4)
             tasks.remove(tasks.size()-1);
         notifyDataSetChanged();
-        Log.d("xx", tasks.size()+"");
         this.notifyItemChanged(tasks.size());
 
     }
@@ -68,7 +66,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ItemViewHolder
     }
 
 
-
     public class ItemViewHolder extends RecyclerView.ViewHolder {
 
         TextView title;
@@ -80,8 +77,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ItemViewHolder
             amount = binding.taskAmount;
             title = binding.taskTitle;
             date = binding.taskDate;
-
-
         }
     }
 }

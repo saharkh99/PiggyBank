@@ -1,7 +1,5 @@
 package com.example.piggybank.Util;
 
-import android.graphics.drawable.Drawable;
-
 import com.example.piggybank.R;
 
 import java.util.Arrays;

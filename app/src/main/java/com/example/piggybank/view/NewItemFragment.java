@@ -3,27 +3,26 @@ package com.example.piggybank.view;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RadioButton;
+import android.widget.TextView;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.piggybank.R;
-import com.example.piggybank.Util.Progress;
 import com.example.piggybank.databinding.NewItemFragmentBinding;
 import com.example.piggybank.model.Transaction;
 import com.example.piggybank.Util.Types;
 import com.example.piggybank.viewmodel.FragmentFactory;
 import com.example.piggybank.viewmodel.NewItemFragmentViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.snackbar.Snackbar;
 
 
 import java.util.Arrays;
@@ -32,18 +31,16 @@ import java.util.List;
 public class NewItemFragment extends BottomSheetDialogFragment {
     NewItemFragmentBinding binding;
     NewItemFragmentViewModel viewModel;
-    private RadioButton incomeRadio, expenseRadio;
+    private TextView picker;
     private boolean isCost = true;
     private Button colorPicker;
     private ImageView iconPicker;
     private EditText amount;
     private double amountDouble;
-    private Progress progress;
-    private boolean resultCost, resultIncome;
     private int resultColor, resultIcon;
-    IconPickerFragment iconPickerFragment;
-    ColorPickerFragment colorPickerFragment;
-    List<String> types;
+    private IconPickerFragment iconPickerFragment;
+    private ColorPickerFragment colorPickerFragment;
+    private List<String> types;
 
     public NewItemFragment(boolean isCost) {
         this.isCost = isCost;
@@ -58,16 +55,15 @@ public class NewItemFragment extends BottomSheetDialogFragment {
         viewModel = ViewModelProviders.of(this,
                 new FragmentFactory(getActivity().getApplication()))
                 .get(NewItemFragmentViewModel.class);
-        setRadio();
+        setTitle();
         chooseColor();
         chooseIcon();
-        binding.setClickHandler(new AddAndEditActivityClickHandlers(this.getView()));
+        binding.setClickHandler(new AddAndEditTransactionClickHandlers(this.getView()));
         return binding.getRoot();
     }
 
     private boolean checkCorrectly() {
         amount = binding.amountItem;
-        Log.d("amount", amount.toString());
         if (amount != null) {
             try {
                 amountDouble = Double.parseDouble(amount.getText().toString().trim());
@@ -119,33 +115,36 @@ public class NewItemFragment extends BottomSheetDialogFragment {
         }
     }
 
-    private void setRadio() {
-        expenseRadio = binding.radioExpense;
-        incomeRadio = binding.radioIncome;
+    private void setTitle() {
+        picker = binding.pickerTv;
         if (isCost) {
-            expenseRadio.setChecked(true);
+            picker.setText("انتخاب هزینه");
         } else
-            incomeRadio.setChecked(true);
-        expenseRadio.setEnabled(false);
-        incomeRadio.setEnabled(false);
+            picker.setText("انتخاب درامد");
+
     }
 
     public void setChanges() {
         if (viewModel.getReportMonthly(Types.getDate(false)) != null) {
             viewModel.getReportMonthly(Types.getDate(false)).observe(getActivity(), monthlyReport -> {
                 HomeFragment.month.setText("ماه :" + Types.getDate(false));
-                HomeFragment.balance.setText("مانده :" + (int) monthlyReport.getBalance());
+                int balanceInt = (int) monthlyReport.getBalance();
+                if (balanceInt < 0) {
+                    HomeFragment.balance.setText("مانده :" + "-" + Math.abs(balanceInt));
+                } else
+                    HomeFragment.balance.setText("مانده :" + Math.abs(balanceInt));
                 HomeFragment.expense.setText("هزینه کل :" + (int) monthlyReport.getTotalExpense());
                 HomeFragment.income.setText("درامد :" + (int) monthlyReport.getTotalIncome());
             });
         }
     }
 
-    public class AddAndEditActivityClickHandlers {
-        View context;
+    public class AddAndEditTransactionClickHandlers {
+        private View context;
+        private Snackbar snackbar;
 
-        public AddAndEditActivityClickHandlers(View context) {
-            Log.d("0", "0");
+
+        public AddAndEditTransactionClickHandlers(View context) {
             this.context = context;
             binding.setClickHandler(this);
         }
@@ -153,13 +152,12 @@ public class NewItemFragment extends BottomSheetDialogFragment {
 
         public void onAddButtonClicked(View view) {
             if (checkCorrectly()) {
-                if (expenseRadio.isChecked()) {
+                if (isCost) {
                     MutableLiveData<Boolean> result = (viewModel.saveCost(amountDouble, resultColor, Types.getRes(types.get(resultIcon)), "u1", Types.getDate(true)));
                     if (result != null) {
                         result.observe(getActivity(), aBoolean -> {
                             if (aBoolean) {
                                 Transaction transaction = new Transaction();
-                                Log.d("3", "3");
                                 transaction.setAmount(amountDouble);
                                 transaction.setColor(resultColor);
                                 transaction.setItemType("هزینه");
@@ -167,6 +165,8 @@ public class NewItemFragment extends BottomSheetDialogFragment {
                                 HomeFragment.itemAdapter.addItem(transaction);
                                 HomeFragment.itemAdapter.notifyItemChanged(HomeFragment.itemAdapter.getItemCount());
                                 setChanges();
+                                snackbar = Snackbar.make(view, "هزینه اضافه شد", Snackbar.LENGTH_INDEFINITE);
+                                snackbar.show();
                             }
                         });
                     }
@@ -176,7 +176,6 @@ public class NewItemFragment extends BottomSheetDialogFragment {
                         result.observe(getActivity(), aBoolean -> {
                             if (aBoolean) {
                                 Transaction transaction = new Transaction();
-                                Log.d("3", "3");
                                 transaction.setAmount(amountDouble);
                                 transaction.setColor(resultColor);
                                 transaction.setItemType("درامد");
@@ -184,6 +183,8 @@ public class NewItemFragment extends BottomSheetDialogFragment {
                                 HomeFragment.itemAdapter.addItem(transaction);
                                 HomeFragment.itemAdapter.notifyItemChanged(HomeFragment.itemAdapter.getItemCount());
                                 setChanges();
+                                snackbar = Snackbar.make(view, "درامد اضافه شد", Snackbar.LENGTH_INDEFINITE);
+                                snackbar.show();
                             }
                         });
                     }

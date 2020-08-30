@@ -13,12 +13,10 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.piggybank.R;
 import com.example.piggybank.adapter.ColorPickerAdapter;
-import com.example.piggybank.databinding.ColorPickerFragmentBinding;
+import com.example.piggybank.databinding.FeaturePickerFragmentBinding;
 
 public class ColorPickerFragment extends DialogFragment {
-    private ColorPickerFragmentBinding colorPickerFragmentBinding;
-    static Bundle args=new Bundle();
-    static ColorPickerFragment fragment = new ColorPickerFragment();
+    private FeaturePickerFragmentBinding colorPickerFragmentBinding;
     int[] colors={R.color.color1,R.color.color2,R.color.color3,R.color.color4,R.color.color5,R.color.color6,
             R.color.color7,R.color.color8,R.color.color9,R.color.color10,R.color.color11,R.color.color12};
     RecyclerView recyclerView;
@@ -28,25 +26,22 @@ public class ColorPickerFragment extends DialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         colorPickerFragmentBinding= DataBindingUtil.inflate(inflater
-                ,R.layout.color_picker_fragment,container,false);
-        findView();
+                ,R.layout.feature_picker_fragment,container,false);
+        binding();
         setRecyclerView();
-        getDialog().setContentView(R.layout.color_picker_fragment);
+        getDialog().setContentView(R.layout.feature_picker_fragment);
         return  colorPickerFragmentBinding.getRoot();
     }
 
     private void setRecyclerView() {
         adapter=new ColorPickerAdapter(colors,this.getContext());
-        adapter.setOnItemClickListener(new ColorPickerAdapter.onItemClickListener(){
-            @Override
-            public void onItemClick(int position) {
-                    index=position;
-                    Intent intent = new Intent();
-                    intent.putExtra("selectedColor", getResources().getColor(colors[index]));
-                    getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
-                    getFragmentManager().popBackStackImmediate();
+        adapter.setOnItemClickListener(position -> {
+                index=position;
+                Intent intent = new Intent();
+                intent.putExtra("selectedColor", getResources().getColor(colors[index]));
+                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
+                getFragmentManager().popBackStackImmediate();
 
-            }
         });
         RecyclerView.LayoutManager manager = new GridLayoutManager(getActivity(),4);
         recyclerView.setLayoutManager(manager);
@@ -55,7 +50,7 @@ public class ColorPickerFragment extends DialogFragment {
 
     }
 
-    private void findView() {
+    private void binding() {
         recyclerView= colorPickerFragmentBinding.recycle;
     }
 }

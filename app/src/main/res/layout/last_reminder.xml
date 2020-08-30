@@ -7,7 +7,7 @@
     app:cardCornerRadius="@dimen/normal_margin"
     android:layout_margin="@dimen/normal_margin"
     app:cardElevation="@dimen/normal_margin"
-    android:backgroundTint="@color/colorAccent"
+    android:backgroundTint="@color/colorAccentWithOpacity"
     android:id="@+id/task_item"
     android:layout_height="100dp">
     <LinearLayout
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/string_title"
-            android:textColor="@color/colorPrimaryDarkWithOpacity"
+            android:textColor="@color/brown_box_with_opacity"
             android:textSize="@dimen/text_size"
             />
         <TextView

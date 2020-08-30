@@ -21,11 +21,10 @@ import com.example.piggybank.viewmodel.ReportFragmentViewModel;
 import com.github.mikephil.charting.charts.PieChart;
 
 public class ReportFragment extends Fragment {
-    static ReportFragmentViewModel viewModel;
-    ReportFragmentBinding binding;
-    PieChart chartView;
+    private static ReportFragmentViewModel viewModel;
+    private ReportFragmentBinding binding;
+    private PieChart chartView;
 
-    //code clean - check null list in charts-just one instance from type must be defined-lists
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -37,7 +36,7 @@ public class ReportFragment extends Fragment {
         setChart();
         setMonthCart(Types.getDate(false));
         setDayChart(Types.getDate(true));
-        binding.setClickHandler(new ReportFragment.AddAndEditActivityClickHandlers(this.getView()));
+        binding.setClickHandler(new AddAndEditReportClickHandlers(this.getView()));
 
         return binding.getRoot();
     }
@@ -59,7 +58,7 @@ public class ReportFragment extends Fragment {
                }
                day.setText(date);
                expense.setText("بیشترین هزینه :"+max);
-             //  income.setText("");
+               income.setText("");
            });
         }
     }
@@ -84,18 +83,16 @@ public class ReportFragment extends Fragment {
         viewModel.getItemsMonthly(Types.getDate(false)).observe(getActivity(), transactions -> viewModel.getPieChart(chartView, transactions));
 
     }
-    public class AddAndEditActivityClickHandlers {
+    public class AddAndEditReportClickHandlers {
         View context;
 
-        public AddAndEditActivityClickHandlers(View context) {
-            Log.d("0", "0");
+        public AddAndEditReportClickHandlers(View context) {
             this.context = context;
             binding.setClickHandler(this);
         }
 
 
         public void onButtonClicked(View view) {
-            Log.d("hi", "hi");
             ListItems listItems=new ListItems();
             listItems.setTargetFragment(ReportFragment.this, 1);
             listItems.show(getFragmentManager(), "list_show");
