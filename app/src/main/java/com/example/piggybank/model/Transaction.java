@@ -1,5 +1,5 @@
 package com.example.piggybank.model;
-//changed
+
 import androidx.annotation.NonNull;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;

@@ -13,7 +13,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_height="wrap_content"
             android:src="@drawable/remove"/>
-    <com.example.piggybank.GridRecyclerView
+    <com.example.piggybank.Util.GridRecyclerView
         android:id="@+id/recycler_view"
         android:layout_margin="@dimen/large_margin"
         android:layout_gravity="center"

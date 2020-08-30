@@ -1,15 +1,6 @@
 package com.example.piggybank.view;
 
-import android.app.Activity;
-import android.content.ClipData;
-import android.content.ClipDescription;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,11 +14,11 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.piggybank.GridRecyclerView;
+import com.example.piggybank.Util.GridRecyclerView;
 import com.example.piggybank.R;
 import com.example.piggybank.adapter.ItemAdapter;
 import com.example.piggybank.databinding.ListItemsFragmentBinding;
-import com.example.piggybank.model.Types;
+import com.example.piggybank.Util.Types;
 import com.example.piggybank.viewmodel.FragmentFactory;
 import com.example.piggybank.viewmodel.ListItemViewModel;
 

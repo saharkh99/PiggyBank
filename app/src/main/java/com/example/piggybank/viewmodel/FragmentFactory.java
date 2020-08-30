@@ -35,6 +35,9 @@ public class FragmentFactory extends ViewModelProvider.NewInstanceFactory {
             else if (modelClass == ReminderViewModel.class) {
                 return (T) new ReminderViewModel(application);
             }
+            else if (modelClass == BaseViewModel.class) {
+                return (T) new BaseViewModel(application);
+            }
             return null;
         }
     }

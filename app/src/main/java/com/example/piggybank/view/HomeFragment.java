@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.piggybank.R;
 import com.example.piggybank.adapter.ItemAdapter;
 import com.example.piggybank.databinding.HomeFragmentBinding;
-import com.example.piggybank.model.Types;
+import com.example.piggybank.Util.Types;
 import com.example.piggybank.viewmodel.FragmentFactory;
 import com.example.piggybank.viewmodel.HomeFragmentViewModel;
 

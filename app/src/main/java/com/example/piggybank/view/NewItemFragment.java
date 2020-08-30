@@ -17,9 +17,10 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.piggybank.R;
+import com.example.piggybank.Util.Progress;
 import com.example.piggybank.databinding.NewItemFragmentBinding;
 import com.example.piggybank.model.Transaction;
-import com.example.piggybank.model.Types;
+import com.example.piggybank.Util.Types;
 import com.example.piggybank.viewmodel.FragmentFactory;
 import com.example.piggybank.viewmodel.NewItemFragmentViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;

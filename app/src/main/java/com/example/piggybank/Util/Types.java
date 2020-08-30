@@ -1,4 +1,4 @@
-package com.example.piggybank.model;
+package com.example.piggybank.Util;
 
 import android.graphics.drawable.Drawable;
 
@@ -135,8 +135,12 @@ public class Types {
                 break;
         }
 
-        if (IsDate)
-            return " " + String.valueOf(day + 1) + " " + getMonth(month - 1) + " " + String.valueOf(year) + " ";
+        if (IsDate) {
+            String years = Integer.toString(year);
+            String days=Integer.toString((day + 1));
+            String months=getMonth(month - 1);
+            return years+" " +months  + " " +days ;
+        }
         else
             return getMonth(month - 1);
     }

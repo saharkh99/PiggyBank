@@ -143,7 +143,8 @@ public class Repository {
                                     Task task = new Task();
                                     task.setAmountTask(js.getDouble("amount"));
                                     task.setIdTask(js.getInt("id"));
-                                    task.setDatesTask("date");
+                                    task.setDatesTask(js.getString("dates"));
+                                    task.setTitleTask(js.getString("title"));
                                     tr.add(task);
 
 

@@ -1,4 +1,5 @@
 package com.example.piggybank.model;
+import com.example.piggybank.Util.Types;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -17,8 +18,6 @@ public class Chart {
     private int hospital, beauty, bill, exchange, check, clothes, foods, gas, present, income, internet,transport;
     public void pieChartMonthly(PieChart pieChart, List<Transaction>transactionsList){
 
-        Log.d("2", "2");
-
         pieDataSet = new PieDataSet(setData(transactionsList,pieChart), "");
         pieData = new PieData(pieDataSet);
         pieChart.setData(pieData);
@@ -35,7 +34,7 @@ public class Chart {
     private List<PieEntry> setData(List<Transaction> transactionsList,PieChart pieChart) {
         List<PieEntry> data = new ArrayList<>();
         for(int i=0;i<transactionsList.size();i++){
-            String type=Types.getRes(transactionsList.get(i).getType());
+            String type= Types.getRes(transactionsList.get(i).getType());
             switch (type){
                 case "hospital":hospital++;
                 case "beauty":beauty++;

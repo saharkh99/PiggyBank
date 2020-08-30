@@ -1,6 +1,5 @@
 package com.example.piggybank.view;
 
-import android.app.LauncherActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,19 +11,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.piggybank.R;
 import com.example.piggybank.databinding.ReportFragmentBinding;
-import com.example.piggybank.model.Transaction;
-import com.example.piggybank.model.Types;
+import com.example.piggybank.Util.Types;
 import com.example.piggybank.viewmodel.FragmentFactory;
 import com.example.piggybank.viewmodel.ReportFragmentViewModel;
 import com.github.mikephil.charting.charts.PieChart;
-
-import java.util.List;
 
 public class ReportFragment extends Fragment {
     static ReportFragmentViewModel viewModel;

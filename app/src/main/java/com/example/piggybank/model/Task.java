@@ -1,14 +1,10 @@
 package com.example.piggybank.model;
 
-//changed
 import androidx.annotation.NonNull;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 import androidx.databinding.library.baseAdapters.BR;
-import androidx.room.Entity;
-import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
-import java.util.Objects;
 //changed
 
 public class Task extends BaseObservable {

@@ -73,7 +73,7 @@
                     android:orientation="horizontal">
 
 
-                    <ImageView
+                    <com.example.piggybank.view.SquareImgView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -199,7 +199,7 @@
         app:itemIconSize="30dp"
         android:elevation="@dimen/cardview_default_elevation"
         android:layout_gravity="start"
-        app:itemTextColor="@color/colorAccent"
+        app:itemTextColor="@color/colorAccentWithOpacity"
         app:itemTextAppearance="@style/TextAppearance.AppCompat.Menu"
         app:headerLayout="@layout/header"
         >

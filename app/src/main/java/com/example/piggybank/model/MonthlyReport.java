@@ -11,8 +11,6 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-import com.google.gson.JsonObject;
-
 import java.util.Objects;
 
 import static androidx.room.ForeignKey.CASCADE;
